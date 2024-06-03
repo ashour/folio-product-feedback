@@ -1,3 +1,12 @@
+import IconChatBubble from "./_components/icons/IconChatBubble";
+import IconCheckmark from "./_components/icons/IconCheckmark";
+import IconChevronLeft from "./_components/icons/IconChevronLeft";
+import IconChevronUp from "./_components/icons/IconChevronUp";
+import IconDetective from "./_components/icons/IconDetective";
+import IconLightBulb from "./_components/icons/IconLightBulb";
+import IconPen from "./_components/icons/IconPen";
+import IconPlusSign from "./_components/icons/IconPlusSign";
+
 export default function Home() {
   return (
     <main className="mx-auto mt-4 max-w-[540px]">
@@ -40,6 +49,27 @@ export default function Home() {
         elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum
         volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar
         nunc sapien ornare nisl. Phasellus pede arcu
+      </p>
+      <h2 className="mb-3 mt-6 text-h2">Icons</h2>
+      <p className="flex items-center gap-2">
+        <IconChevronLeft />
+        <IconChevronUp />
+        <i className="block -scale-x-100">
+          <IconChevronLeft />
+        </i>
+        <i className="block -scale-y-100">
+          <IconChevronUp />
+        </i>
+        <IconChatBubble />
+        <IconCheckmark />
+      </p>
+      <p className="mt-3 flex items-center gap-2 bg-slate-600 p-2">
+        <IconLightBulb />
+        <IconPlusSign />
+        <IconPen />
+      </p>
+      <p className="mt-6 flex items-center">
+        <IconDetective />
       </p>
     </main>
   );
