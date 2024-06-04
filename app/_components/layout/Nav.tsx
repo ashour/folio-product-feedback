@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import IconCross from "../icons/IconCross";
 import IconHamburger from "../icons/IconHamburger";
@@ -27,11 +28,17 @@ export default function Nav() {
           {isOpenOnMobile ? <IconCross /> : <IconHamburger />}
         </button>
       </div>
-      <div
+      <motion.div
         className={clsx({
-          "max-md:bg-black/50 basis-2/3 max-md:h-screen": true,
+          "basis-2/3 max-md:h-screen md:!bg-transparent": true,
           "max-md:hidden": !isOpenOnMobile,
         })}
+        animate={{
+          backgroundColor: isOpenOnMobile
+            ? "rgba(0,0,0,0.5)"
+            : "rgba(0, 0, 0, 0)",
+        }}
+        transition={{ duration: 0.3 }}
       >
         <div className="flex h-44 flex-1 max-md:ms-[27%] max-md:flex max-md:h-screen max-md:flex-col max-md:gap-6 max-md:bg-slate-50 max-md:px-6 max-md:pt-6 md:gap-3 lg:flex-col lg:gap-6">
           <div className="flex h-44 items-center justify-center bg-white text-slate-600 md:flex md:flex-1 lg:min-h-40">
@@ -41,7 +48,7 @@ export default function Nav() {
             Roadmap summary
           </div>
         </div>
-      </div>
+      </motion.div>
     </nav>
   );
 }
