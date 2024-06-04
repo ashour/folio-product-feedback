@@ -11,6 +11,7 @@ const config: Config = {
       transparent: "transparent",
       current: "currentColor",
       white: "#FFFFFF",
+      black: "#000000",
       slate: {
         50: "#F7F8FD",
         100: "#F2F4FF",
