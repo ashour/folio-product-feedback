@@ -2,14 +2,16 @@ import IconChatBubble from "./_components/icons/IconChatBubble";
 import IconCheckmark from "./_components/icons/IconCheckmark";
 import IconChevronLeft from "./_components/icons/IconChevronLeft";
 import IconChevronUp from "./_components/icons/IconChevronUp";
+import IconCross from "./_components/icons/IconCross";
 import IconDetective from "./_components/icons/IconDetective";
+import IconHamburger from "./_components/icons/IconHamburger";
 import IconLightBulb from "./_components/icons/IconLightBulb";
 import IconPen from "./_components/icons/IconPen";
 import IconPlusSign from "./_components/icons/IconPlusSign";
 
 export default function Home() {
   return (
-    <main className="mx-auto mt-4 max-w-[540px]">
+    <main className="bg-white px-[6.4%]">
       <h1 className="mb-3 text-h1">Sed egestas ante et vulputate volutpat</h1>
       <h2 className="mb-3 text-h2">
         Vestibulum volutpat acus a ultrices sagittis
@@ -67,6 +69,8 @@ export default function Home() {
         <IconLightBulb />
         <IconPlusSign />
         <IconPen />
+        <IconCross />
+        <IconHamburger />
       </p>
       <p className="mt-6 flex items-center">
         <IconDetective />
