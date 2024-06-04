@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .brand-box {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(
+      128.88% 128.88% at 103.9% -10.39%,
+      #e84d70 0%,
+      #a337f6 53.09%,
+      #28a7ed 100%
+    );
+  }
+  .brand-box:before {
+    position: absolute;
+    content: "";
+    width: 168px;
+    height: 250px;
+    left: -22%;
+    top: -79%;
+
+    background: #7ad8fb;
+    mix-blend-mode: normal;
+    opacity: 0.77;
+    filter: blur(45px);
+  }
+
+  .brand-box:after {
+    position: absolute;
+    content: "";
+    width: 168px;
+    height: 250px;
+    left: 75%;
+    top: 51%;
+
+    background: #fbb57a;
+    filter: blur(45px);
+  }
+}

@@ -91,6 +91,9 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-jost)", "sans-serif"],
       },
+      borderRadius: {
+        "10px": "10px",
+      },
     },
   },
   plugins: [],
