@@ -30,7 +30,7 @@ export default async function DbTest() {
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            {user.first_name} {user.last_name}{" "}
+            {user.firstName} {user.lastName}{" "}
             <span className="text-slate-500">({user.id})</span>
           </li>
         ))}
