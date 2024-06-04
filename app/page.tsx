@@ -9,7 +9,7 @@ import IconPlusSign from "./_components/icons/IconPlusSign";
 
 export default function Home() {
   return (
-    <main className="mx-auto mt-4 max-w-[540px]">
+    <main className="bg-white px-[6.4%]">
       <h1 className="mb-3 text-h1">Sed egestas ante et vulputate volutpat</h1>
       <h2 className="mb-3 text-h2">
         Vestibulum volutpat acus a ultrices sagittis
