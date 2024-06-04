@@ -12,8 +12,8 @@ export default async function addUser(formData: FormData) {
   try {
     await prisma.user.create({
       data: {
-        first_name: firstName,
-        last_name: lastName,
+        firstName,
+        lastName,
       },
     });
 
