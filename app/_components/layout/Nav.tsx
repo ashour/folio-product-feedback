@@ -1,12 +1,20 @@
 "use client";
 
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconCross from "../icons/IconCross";
 import IconHamburger from "../icons/IconHamburger";
 
 export default function Nav() {
   const [isOpenOnMobile, setIsOpenOnMobile] = useState(false);
+
+  useEffect(() => {
+    if (isOpenOnMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpenOnMobile]);
 
   return (
     <nav className="max-md:fixed max-md:w-full md:flex md:gap-3 md:px-[5.21%] lg:flex-col  lg:gap-6 lg:px-0">
