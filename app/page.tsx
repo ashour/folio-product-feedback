@@ -2,7 +2,9 @@ import IconChatBubble from "./_components/icons/IconChatBubble";
 import IconCheckmark from "./_components/icons/IconCheckmark";
 import IconChevronLeft from "./_components/icons/IconChevronLeft";
 import IconChevronUp from "./_components/icons/IconChevronUp";
+import IconCross from "./_components/icons/IconCross";
 import IconDetective from "./_components/icons/IconDetective";
+import IconHamburger from "./_components/icons/IconHamburger";
 import IconLightBulb from "./_components/icons/IconLightBulb";
 import IconPen from "./_components/icons/IconPen";
 import IconPlusSign from "./_components/icons/IconPlusSign";
@@ -67,6 +69,8 @@ export default function Home() {
         <IconLightBulb />
         <IconPlusSign />
         <IconPen />
+        <IconCross />
+        <IconHamburger />
       </p>
       <p className="mt-6 flex items-center">
         <IconDetective />
