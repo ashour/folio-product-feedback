@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import Image from "next/image";
 import addUser from "./actions/addUser";
 
 const prisma = new PrismaClient();
@@ -27,11 +28,17 @@ export default async function DbTest() {
       </form>
 
       <h2 className="mb-1 text-h2">Users</h2>
-      <ul>
+      <ul className="flex flex-col gap-1">
         {users.map((user) => (
-          <li key={user.id}>
+          <li key={user.id} className="flex gap-1">
+            <Image
+              src={`/users/${user.username}.jpg`}
+              alt={`Profile pic for user ${user.username}`}
+              width={40}
+              height={40}
+            />
             {user.firstName} {user.lastName}{" "}
-            <span className="text-slate-500">({user.id})</span>
+            <span className="text-slate-500">({user.username})</span>
           </li>
         ))}
       </ul>

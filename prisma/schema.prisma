@@ -14,6 +14,7 @@ model User {
   updatedAt DateTime @updatedAt
   firstName String
   lastName  String
+  username  String   @unique
 
   @@map("pfa_users")
 }

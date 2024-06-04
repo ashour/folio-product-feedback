@@ -14,6 +14,7 @@ export default async function addUser(formData: FormData) {
       data: {
         firstName,
         lastName,
+        username: `${firstName}.${lastName}`,
       },
     });
 
