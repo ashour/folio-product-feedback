@@ -11,7 +11,9 @@ import {
   ListboxOptions,
 } from "@headlessui/react";
 
+import Button from "@/app/_components/Button";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import HelpText from "./HelpText";
 import Label from "./Label";
@@ -20,6 +22,11 @@ const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"];
 
 export default function Form() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const router = useRouter();
+
+  function backToPrevPage() {
+    router.back();
+  }
 
   return (
     <form>
@@ -57,7 +64,7 @@ export default function Form() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     anchor="bottom"
-                    className="shadow-listbox w-[var(--button-width)] origin-top rounded-10px [--anchor-gap:16px]"
+                    className="w-[var(--button-width)] origin-top rounded-10px shadow-listbox [--anchor-gap:16px]"
                   >
                     {categories.map((category) => (
                       <ListboxOption
@@ -86,9 +93,20 @@ export default function Form() {
       <textarea
         id="details"
         name="details"
-        className="form-input"
+        className="form-input mb-10"
         rows={5}
       ></textarea>
+      <Button type="submit" variant="purple" className="mb-4 block w-full">
+        Add Feedback
+      </Button>
+      <Button
+        type="button"
+        variant="slate"
+        className="block w-full"
+        onClick={backToPrevPage}
+      >
+        Cancel
+      </Button>
     </form>
   );
 }

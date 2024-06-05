@@ -14,7 +14,7 @@ export default function BtnBack() {
   return (
     <Button slim underline onClick={backToPrevPage}>
       <IconChevronLeft />
-      Go Back
+      <span className="text-body-3 font-bold text-slate-500">Go Back</span>
     </Button>
   );
 }
