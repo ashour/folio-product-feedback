@@ -91,9 +91,9 @@ export default function Home() {
           Button 3
         </Button>
         <Button variant="danger" className="mb-2 block">
-          Button 3
+          Button 4
         </Button>
-        <Button className="gap-2 px-0" underline>
+        <Button className="gap-2 px-0" underline slim>
           <IconChevronLeft />
           Go Back
         </Button>
