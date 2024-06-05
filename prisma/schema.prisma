@@ -27,7 +27,7 @@ model Feedback {
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   category  String
-  status    String?  @default("suggestion")
+  status    String?  @default("Suggestion")
   title     String
   details   String
 

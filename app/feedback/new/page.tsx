@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "A Next.js demo for collecting feedback from users.",
 };
 
-export default function NewFeedback() {
+export default async function NewFeedback() {
   return (
     <SimpleLayout className="mx-auto max-w-[540px]">
       <main className="relative rounded-10px bg-white px-6 pb-6 pt-11">

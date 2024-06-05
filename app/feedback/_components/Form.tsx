@@ -15,6 +15,7 @@ import Button from "@/app/_components/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createFeedback } from "../_actions/feedback_actions";
 import HelpText from "./HelpText";
 import Label from "./Label";
 
@@ -29,7 +30,7 @@ export default function Form() {
   }
 
   return (
-    <form>
+    <form action={createFeedback} method="POST">
       <Label htmlFor="title" className="mb-1">
         Feedback Title
       </Label>
