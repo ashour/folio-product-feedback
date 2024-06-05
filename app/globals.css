@@ -48,6 +48,6 @@
   }
 
   .form-input {
-    @apply block w-full rounded-5px bg-slate-50 px-6 py-3 text-body-2  text-slate-600 focus:outline-none focus:ring-[1px] focus:ring-blue;
+    @apply block w-full rounded-5px bg-slate-50 px-6 py-3 text-body-2  text-slate-600 hover:cursor-pointer hover:ring-[1px] hover:ring-blue focus:outline-none focus:ring-[1px] focus:ring-blue;
   }
 }

@@ -96,17 +96,14 @@ export default function Form() {
         className="form-input mb-10"
         rows={5}
       ></textarea>
-      <Button type="submit" variant="purple" className="mb-4 block w-full">
-        Add Feedback
-      </Button>
-      <Button
-        type="button"
-        variant="slate"
-        className="block w-full"
-        onClick={backToPrevPage}
-      >
-        Cancel
-      </Button>
+      <div className="flex flex-col gap-4 md:flex-row-reverse">
+        <Button type="submit" variant="purple">
+          Add Feedback
+        </Button>
+        <Button type="button" variant="slate" onClick={backToPrevPage}>
+          Cancel
+        </Button>
+      </div>
     </form>
   );
 }

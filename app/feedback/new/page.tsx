@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function NewFeedback() {
   return (
-    <SimpleLayout>
+    <SimpleLayout className="mx-auto max-w-[540px]">
       <main className="relative rounded-10px bg-white px-6 pb-6 pt-11">
         <GradientIcon className="absolute -top-5" />
         <h1 className="mb-6 text-h3 ">Create New Feedback</h1>
