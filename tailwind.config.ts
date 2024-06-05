@@ -95,6 +95,9 @@ const config: Config = {
         "10px": "10px",
         "5px": "5px",
       },
+      boxShadow: {
+        listbox: "0px 10px 40px -7px rgba(55, 63, 104, 0.350492)",
+      },
     },
   },
   plugins: [],

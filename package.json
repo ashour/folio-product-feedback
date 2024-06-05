@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@headlessui/react": "^2.0.4",
     "@prisma/client": "^5.14.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.10",
