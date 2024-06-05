@@ -35,7 +35,7 @@ export default function Button({
           "bg-danger text-white ": variant === "danger",
           "hover:bg-danger-hover": variant === "danger" && !underline,
           "hover:underline": underline,
-          "px-12": !slim,
+          "px-6": !slim,
           "px-0": slim,
         },
         className,
