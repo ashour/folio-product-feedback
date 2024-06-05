@@ -29,7 +29,7 @@ export default function Form() {
       <HelpText className="mb-4">Add a short, descriptive headline</HelpText>
       <input type="text" id="title" name="title" className="form-input mb-6" />
 
-      <Field>
+      <Field className="mb-6">
         <HuiLabel className="mb-1">
           <Label component="span">Category</Label>
         </HuiLabel>
@@ -44,7 +44,7 @@ export default function Form() {
         >
           {({ open }) => (
             <>
-              <ListboxButton className="form-input relative mb-6 flex w-full items-baseline justify-between text-left focus:outline-none focus:ring-[1px] focus:ring-blue">
+              <ListboxButton className="form-input relative flex w-full items-baseline justify-between text-left focus:outline-none focus:ring-[1px] focus:ring-blue">
                 {selectedCategory}
                 <IconChevronUp className="-scale-y-100" />
               </ListboxButton>
@@ -76,6 +76,19 @@ export default function Form() {
           )}
         </Listbox>
       </Field>
+
+      <Label htmlFor="details" className="mb-1">
+        Feedback Detail
+      </Label>
+      <HelpText className="mb-4">
+        Include any specific comments on what should be improved, added, etc.
+      </HelpText>
+      <textarea
+        id="details"
+        name="details"
+        className="form-input"
+        rows={5}
+      ></textarea>
     </form>
   );
 }
