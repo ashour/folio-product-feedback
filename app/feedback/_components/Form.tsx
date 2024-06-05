@@ -4,7 +4,7 @@ import IconCheckmark from "@/app/_components/icons/IconCheckmark";
 import IconChevronUp from "@/app/_components/icons/IconChevronUp";
 import {
   Field,
-  Label,
+  Label as HuiLabel,
   Listbox,
   ListboxButton,
   ListboxOption,
@@ -13,6 +13,8 @@ import {
 } from "@headlessui/react";
 
 import { useState } from "react";
+import HelpText from "./HelpText";
+import Label from "./Label";
 
 const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"];
 
@@ -21,35 +23,26 @@ export default function Form() {
 
   return (
     <form>
-      <label
-        htmlFor="title"
-        className="mb-1 block cursor-pointer text-body-2 font-bold text-slate-600"
-      >
+      <Label htmlFor="title" className="mb-1">
         Feedback Title
-      </label>
-      <p className="mb-4 text-body-2 text-slate-500">
-        Add a short, descriptive headline
-      </p>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        className="rounded-5px text-body-2/1 mb-6 block w-full bg-slate-50 px-6 py-3  text-slate-600 focus:outline-none focus:ring-[1px] focus:ring-blue"
-      />
+      </Label>
+      <HelpText className="mb-4">Add a short, descriptive headline</HelpText>
+      <input type="text" id="title" name="title" className="form-input mb-6" />
 
       <Field>
-        <Label className="mb-1 block cursor-pointer text-body-2 font-bold text-slate-600">
-          Category
-        </Label>
-        <p className="mb-4 text-body-2 text-slate-500">
+        <HuiLabel className="mb-1">
+          <Label component="span">Category</Label>
+        </HuiLabel>
+        <HelpText className="mb-4">
           Choose a category for your feedback
-        </p>
+        </HelpText>
+
         <Listbox
           value={selectedCategory}
           onChange={setSelectedCategory}
           name="category"
         >
-          <ListboxButton className="rounded-5px text-body-2/1 relative mb-6 flex w-full items-baseline  justify-between bg-slate-50 px-6 py-3 text-left text-slate-600 focus:outline-none focus:ring-[1px] focus:ring-blue">
+          <ListboxButton className="form-input relative mb-6 flex w-full items-baseline justify-between text-left focus:outline-none focus:ring-[1px] focus:ring-blue">
             {selectedCategory}
             <IconChevronUp className="-scale-y-100" />
           </ListboxButton>
@@ -60,7 +53,7 @@ export default function Form() {
           >
             <ListboxOptions
               anchor="bottom"
-              className="shadow-listbox mt-4 w-[var(--button-width)] rounded-10px"
+              className="shadow-listbox w-[var(--button-width)] rounded-10px [--anchor-gap:16px]"
             >
               {categories.map((category) => (
                 <ListboxOption
