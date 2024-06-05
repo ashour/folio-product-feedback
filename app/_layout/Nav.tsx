@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import IconCross from "../icons/IconCross";
-import IconHamburger from "../icons/IconHamburger";
-import IconLogo from "../icons/IconLogo";
+import IconCross from "../_components/icons/IconCross";
+import IconHamburger from "../_components/icons/IconHamburger";
+import IconLogo from "../_components/icons/IconLogo";
 
 export default function Nav() {
   const [isOpenOnMobile, setIsOpenOnMobile] = useState(false);
