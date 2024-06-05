@@ -11,7 +11,10 @@ export default function BtnBack() {
   }
 
   return (
-    <button className="flex items-center gap-2" onClick={backToPrevPage}>
+    <button
+      className="flex items-center gap-2 hover:underline"
+      onClick={backToPrevPage}
+    >
       <IconChevronLeft />
       <span className="text-body-3 font-bold">Go Back</span>
     </button>

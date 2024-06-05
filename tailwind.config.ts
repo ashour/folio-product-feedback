@@ -93,6 +93,7 @@ const config: Config = {
       },
       borderRadius: {
         "10px": "10px",
+        "5px": "5px",
       },
     },
   },
