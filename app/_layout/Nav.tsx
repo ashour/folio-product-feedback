@@ -2,21 +2,13 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import IconCross from "../_components/icons/IconCross";
 import IconHamburger from "../_components/icons/IconHamburger";
 import IconLogo from "../_components/icons/IconLogo";
 
 export default function Nav() {
   const [isOpenOnMobile, setIsOpenOnMobile] = useState(false);
-
-  useEffect(() => {
-    if (isOpenOnMobile) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isOpenOnMobile]);
 
   return (
     <nav className="max-md:fixed max-md:w-full md:flex md:gap-3 md:px-[5.21%] lg:flex-col lg:gap-6 lg:px-0">
