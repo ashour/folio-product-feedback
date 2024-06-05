@@ -8,6 +8,8 @@ import IconHamburger from "@/app/_components/icons/IconHamburger";
 import IconLightBulb from "@/app/_components/icons/IconLightBulb";
 import IconPen from "@/app/_components/icons/IconPen";
 import IconPlusSign from "@/app/_components/icons/IconPlusSign";
+import Link from "next/link";
+import Button from "../_components/Button";
 import NavLayout from "../_layout/NavLayout";
 
 export default function Home() {
@@ -78,6 +80,34 @@ export default function Home() {
         <p className="mt-6 flex items-center">
           <IconDetective />
         </p>
+        <h2 className="mb-3 mt-6 text-h2">Buttons</h2>
+        <Button variant="purple" className="mb-2 block">
+          Button 1
+        </Button>
+        <Button variant="blue" className="mb-2 block">
+          Button 2
+        </Button>
+        <Button variant="slate" className="mb-2 block">
+          Button 3
+        </Button>
+        <Button variant="danger" className="mb-2 block">
+          Button 3
+        </Button>
+        <Button className="gap-2 px-0" underline>
+          <IconChevronLeft />
+          Go Back
+        </Button>
+        <Button
+          className="inline-flex gap-2"
+          variant="slate"
+          as={Link}
+          href="/"
+          underline
+        >
+          <IconChevronLeft stroke="#ffffff" />
+          Go Back
+        </Button>
+        <p className="py-6"></p>
       </main>
     </NavLayout>
   );

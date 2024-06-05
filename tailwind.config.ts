@@ -86,6 +86,13 @@ const config: Config = {
           fontWeight: "700",
         },
       ],
+      button: [
+        "0.875rem",
+        {
+          lineHeight: "1.4286",
+          fontWeight: "700",
+        },
+      ],
     },
     extend: {
       fontFamily: {

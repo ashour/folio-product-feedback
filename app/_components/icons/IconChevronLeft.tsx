@@ -1,4 +1,4 @@
-export default function IconChevronLeft() {
+export default function IconChevronLeft({ stroke }: { stroke?: string }) {
   return (
     <svg
       width="12"
@@ -7,7 +7,11 @@ export default function IconChevronLeft() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M8 10L4 6L8 2" stroke="#4661E6" strokeWidth="2" />
+      <path
+        d="M8 10L4 6L8 2"
+        strokeWidth="2"
+        stroke={stroke ? stroke : "#4661E6"}
+      />
     </svg>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Button from "../_components/Button";
 import IconChevronLeft from "../_components/icons/IconChevronLeft";
 
 export default function BtnBack() {
@@ -11,12 +12,9 @@ export default function BtnBack() {
   }
 
   return (
-    <button
-      className="flex items-center gap-2 hover:underline"
-      onClick={backToPrevPage}
-    >
+    <Button className="px-0" underline onClick={backToPrevPage}>
       <IconChevronLeft />
-      <span className="text-body-3 font-bold">Go Back</span>
-    </button>
+      Go Back
+    </Button>
   );
 }
