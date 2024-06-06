@@ -1,17 +1,23 @@
+@import "~react-toastify/dist/ReactToastify.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  .brand-box {
-    position: relative;
-    overflow: hidden;
-    background: radial-gradient(
+  :root {
+    --pfa-brand-gradient: radial-gradient(
       128.88% 128.88% at 103.9% -10.39%,
       #e84d70 0%,
       #a337f6 53.09%,
       #28a7ed 100%
     );
+  }
+
+  .brand-box {
+    position: relative;
+    overflow: hidden;
+    background: var(--pfa-brand-gradient);
   }
   .brand-box:before {
     position: absolute;
@@ -37,5 +43,16 @@
 
     background: #fbb57a;
     filter: blur(45px);
+  }
+
+  .bg-brand-gradient {
+    background: var(--pfa-brand-gradient);
+  }
+
+  .form-input {
+    @apply block w-full rounded-5px bg-slate-50 px-6 py-3 text-body-2  text-slate-600 hover:cursor-pointer hover:ring-[1px] hover:ring-blue focus:outline-none focus:ring-[1px] focus:ring-blue;
+  }
+  .form-input--error {
+    @apply border border-danger ring-danger hover:ring-transparent focus:ring-transparent;
   }
 }
