@@ -60,7 +60,7 @@ export default function Form() {
         Feedback Title
       </Label>
       <HelpText className="mb-4">Add a short, descriptive headline</HelpText>
-      <input {...register("title")} className="form-input mb-6" />
+      <input className="form-input mb-6" id="title" {...register("title")} />
       {errors.title && <span>{errors.title.message}</span>}
 
       <Field className="mb-6">
@@ -91,9 +91,10 @@ export default function Form() {
         Include any specific comments on what should be improved, added, etc.
       </HelpText>
       <textarea
-        {...register("details")}
-        className="form-input mb-10"
         rows={5}
+        className="form-input mb-10"
+        id="details"
+        {...register("details")}
       ></textarea>
       {errors.details && <span>{errors.details.message}</span>}
 
