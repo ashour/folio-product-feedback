@@ -59,12 +59,8 @@ export default function Form() {
         hideProgressBar
         closeButton={false}
         position="bottom-center"
-        toastClassName={() =>
-          "p-4 rounded-10px shadow-md flex justify-between items-center bg-sky text-white"
-        }
-        bodyClassName={() =>
-          "text-white flex justify-between items-center stroke-white"
-        }
+        toastClassName={() => "p-4 rounded-10px shadow-md bg-sky text-white"}
+        bodyClassName={() => "text-white stroke-white text-center md:text-left"}
       />
 
       <Label htmlFor="title" className="mb-1">
