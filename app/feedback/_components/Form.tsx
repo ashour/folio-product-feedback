@@ -3,6 +3,7 @@
 import Button from "@/app/_components/Button";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,6 +20,7 @@ export default function Form() {
   const router = useRouter();
   const {
     watch,
+    reset,
     control,
     register,
     handleSubmit,
@@ -43,6 +45,7 @@ export default function Form() {
         method: "POST",
         body: JSON.stringify(data),
       });
+      reset();
       toast("Feedback added successfully");
     } catch (error) {
       console.error(error);
@@ -55,21 +58,29 @@ export default function Form() {
         stacked={true}
         hideProgressBar
         closeButton={false}
+        position="bottom-center"
         toastClassName={() =>
-          "p-4 rounded-10px shadow-md flex justify-between items-center bg-slate-600 text-white mt-2 mx-4 md:m-0"
+          "p-4 rounded-10px shadow-md flex justify-between items-center bg-sky text-white"
         }
         bodyClassName={() =>
           "text-white flex justify-between items-center stroke-white"
         }
       />
+
       <Label htmlFor="title" className="mb-1">
         Feedback Title
       </Label>
       <HelpText className="mb-4">Add a short, descriptive headline</HelpText>
-      <input {...register("title")} id="title" className="form-input mb-6" />
-      {errors.title && <span>{errors.title.message}</span>}
+      <input
+        {...register("title")}
+        id="title"
+        className={clsx("form-input", errors.title && "form-input--error")}
+      />
+      {errors.title && (
+        <p className="mt-1 text-body-2 text-danger">{errors.title.message}</p>
+      )}
 
-      <Field className="mb-6">
+      <Field className="mt-6">
         <HuiLabel className="mb-1">
           <Label component="span">Category</Label>
         </HuiLabel>
@@ -90,7 +101,7 @@ export default function Form() {
         />
       </Field>
 
-      <Label htmlFor="details" className="mb-1">
+      <Label htmlFor="details" className="mb-1 mt-6">
         Feedback Detail
       </Label>
       <HelpText className="mb-4">
@@ -100,11 +111,13 @@ export default function Form() {
         {...register("details")}
         rows={5}
         id="details"
-        className="form-input mb-10"
+        className={clsx("form-input", errors.details && "form-input--error")}
       ></textarea>
-      {errors.details && <span>{errors.details.message}</span>}
+      {errors.details && (
+        <p className="mt-1 text-body-2 text-danger">{errors.details.message}</p>
+      )}
 
-      <div className="flex flex-col gap-4 md:flex-row-reverse">
+      <div className="mt-10 flex flex-col gap-4 md:flex-row-reverse">
         <Button type="submit" variant="purple" disabled={isSubmitting}>
           Add Feedback
         </Button>
