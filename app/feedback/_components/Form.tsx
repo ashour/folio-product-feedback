@@ -5,6 +5,7 @@ import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 import { categories } from "../_lib/categories";
 import {
   createFeedbackSchema,
@@ -36,11 +37,13 @@ export default function Form() {
   }
 
   const onSubmit: SubmitHandler<CreateFeedbackSchema> = async (data) => {
+    toast("Adding feedback...");
     try {
       const result = await fetch("/api/feedback", {
         method: "POST",
         body: JSON.stringify(data),
       });
+      toast("Feedback added successfully");
     } catch (error) {
       console.error(error);
     }
@@ -48,6 +51,17 @@ export default function Form() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <ToastContainer
+        stacked={true}
+        hideProgressBar
+        closeButton={false}
+        toastClassName={() =>
+          "p-4 rounded-10px shadow-md flex justify-between items-center bg-slate-600 text-white mt-2 mx-4 md:m-0"
+        }
+        bodyClassName={() =>
+          "text-white flex justify-between items-center stroke-white"
+        }
+      />
       <Label htmlFor="title" className="mb-1">
         Feedback Title
       </Label>

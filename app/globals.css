@@ -1,9 +1,11 @@
+@import "~react-toastify/dist/ReactToastify.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  * {
+  :root {
     --pfa-brand-gradient: radial-gradient(
       128.88% 128.88% at 103.9% -10.39%,
       #e84d70 0%,
