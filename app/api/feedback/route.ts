@@ -15,14 +15,22 @@ export async function POST(req: Request, res: Response) {
   const prisma = new PrismaClient();
   const author = await mockLoggedInUser();
 
-  await prisma.feedback.create({
-    data: {
-      title: safeData.title,
-      category: safeData.category,
-      details: safeData.details,
-      authorId: author.id,
-    },
-  });
+  try {
+    await prisma.feedback.create({
+      data: {
+        title: safeData.title,
+        category: safeData.category,
+        details: safeData.details,
+        authorId: author.id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Failed to add feedback" },
+      { status: 500 },
+    );
+  }
 
   return Response.json({ status: "success" });
 }

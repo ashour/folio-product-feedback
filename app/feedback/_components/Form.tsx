@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/_components/Button";
+import IconCross from "@/app/_components/icons/IconCross";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
@@ -45,8 +46,15 @@ export default function Form() {
         method: "POST",
         body: JSON.stringify(data),
       });
-      reset();
-      toast("Feedback added successfully");
+      if (result.ok) {
+        reset();
+        toast("Feedback added successfully");
+      } else {
+        toast("Error: failed to add feedback", {
+          autoClose: false,
+          type: "error",
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -55,12 +63,28 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ToastContainer
+        icon={false}
+        closeOnClick
         stacked={true}
         hideProgressBar
-        closeButton={false}
         position="bottom-center"
-        toastClassName={() => "p-4 rounded-10px shadow-md bg-sky text-white"}
-        bodyClassName={() => "text-white stroke-white text-center md:text-left"}
+        toastClassName={(ctx) =>
+          clsx(
+            "py-4 px-8 md:p-4 rounded-10px shadow-md text-white cursor-pointer flex justify-between items-center",
+            {
+              "bg-sky": !ctx || !ctx.type || ctx.type === "default",
+              "bg-danger": ctx?.type === "error",
+            },
+          )
+        }
+        bodyClassName={() =>
+          "text-white stroke-white flex-1 flex justify-between"
+        }
+        closeButton={
+          <div className="flex h-6 w-6 items-center justify-center">
+            <IconCross />
+          </div>
+        }
       />
 
       <Label htmlFor="title" className="mb-1">
