@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 type ButtonProps = {
-  variant?: "purple" | "blue" | "slate" | "danger";
+  variant: "purple" | "blue" | "slate" | "danger" | "ghost";
   as?: React.ElementType;
   underline?: boolean;
   slim?: boolean;
@@ -10,6 +10,29 @@ type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
   React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
+const colorVariants = {
+  ghost: {
+    default: "bg-transparent text-slate-500",
+    hover: "hover:bg-transparent",
+  },
+  purple: {
+    default: "bg-purple text-white",
+    hover: "hover:bg-purple-hover",
+  },
+  blue: {
+    default: "bg-blue text-white",
+    hover: "hover:bg-blue-hover",
+  },
+  slate: {
+    default: "bg-slate-600 text-white",
+    hover: "hover:bg-slate-hover",
+  },
+  danger: {
+    default: "bg-danger text-white",
+    hover: "hover:bg-danger-hover",
+  },
+};
+
 export default function Button({
   variant,
   as = "button",
@@ -17,6 +40,7 @@ export default function Button({
   slim = false,
   children,
   className,
+  disabled,
   ...props
 }: ButtonProps) {
   const Component = as;
@@ -26,15 +50,10 @@ export default function Button({
         {
           "flex items-center justify-center gap-1 rounded-10px py-3 text-center text-button":
             true,
-          "bg-purple text-white": variant === "purple",
-          "hover:bg-purple-hover": variant === "purple" && !underline,
-          "bg-blue text-white ": variant === "blue",
-          "hover:bg-blue-hover": variant === "blue" && !underline,
-          "bg-slate-600 text-white": variant === "slate",
-          "hover:bg-slate-600": variant === "slate" && !underline,
-          "bg-danger text-white ": variant === "danger",
-          "hover:bg-danger-hover": variant === "danger" && !underline,
-          "hover:underline": underline,
+          [colorVariants[variant]["default"]]: !disabled,
+          [colorVariants[variant]["hover"]]: !underline,
+          "bg-slate-100 text-slate-500": disabled,
+          "hover:underline": underline && !disabled,
           "px-6": !slim,
           "px-0": slim,
         },
