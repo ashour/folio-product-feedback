@@ -1,5 +1,6 @@
 import { createFeedbackSchema } from "@/app/feedback/_validation/createFeedbackSchema";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { mockLoggedInUser } from "../../_lib/auth";
 
@@ -15,14 +16,24 @@ export async function POST(req: Request, res: Response) {
   const prisma = new PrismaClient();
   const author = await mockLoggedInUser();
 
-  await prisma.feedback.create({
-    data: {
-      title: safeData.title,
-      category: safeData.category,
-      details: safeData.details,
-      authorId: author.id,
-    },
-  });
+  try {
+    await prisma.feedback.create({
+      data: {
+        title: safeData.title,
+        category: safeData.category,
+        details: safeData.details,
+        authorId: author.id,
+      },
+    });
+
+    revalidatePath("/");
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Failed to add feedback" },
+      { status: 500 },
+    );
+  }
 
   return Response.json({ status: "success" });
 }
