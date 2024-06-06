@@ -1,5 +1,6 @@
 import { createFeedbackSchema } from "@/app/feedback/_validation/createFeedbackSchema";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { mockLoggedInUser } from "../../_lib/auth";
 
@@ -24,6 +25,8 @@ export async function POST(req: Request, res: Response) {
         authorId: author.id,
       },
     });
+
+    revalidatePath("/");
   } catch (error) {
     console.error(error);
     return NextResponse.json(
