@@ -21,7 +21,7 @@ export default function Form() {
     control,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm<CreateFeedbackSchema>({
     resolver: zodResolver(createFeedbackSchema),
     defaultValues: {
@@ -35,18 +35,15 @@ export default function Form() {
     router.back();
   }
 
-  const onSubmit: SubmitHandler<CreateFeedbackSchema> = (data) => {
-    fetch("/api/feedback", {
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
+  const onSubmit: SubmitHandler<CreateFeedbackSchema> = async (data) => {
+    try {
+      const result = await fetch("/api/feedback", {
+        method: "POST",
+        body: JSON.stringify(data),
       });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -94,10 +91,15 @@ export default function Form() {
       {errors.details && <span>{errors.details.message}</span>}
 
       <div className="flex flex-col gap-4 md:flex-row-reverse">
-        <Button type="submit" variant="purple">
+        <Button type="submit" variant="purple" disabled={isSubmitting}>
           Add Feedback
         </Button>
-        <Button type="button" variant="slate" onClick={backToPrevPage}>
+        <Button
+          type="button"
+          variant="slate"
+          onClick={backToPrevPage}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
       </div>
