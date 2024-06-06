@@ -1,25 +1,18 @@
 "use client";
 
-import { Field, Label as HuiLabel } from "@headlessui/react";
-
 import Button from "@/app/_components/Button";
+import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { categories } from "../_lib/categories";
+import {
+  createFeedbackSchema,
+  type CreateFeedbackSchema,
+} from "../_validation/createFeedbackSchema";
 import HelpText from "./HelpText";
 import Label from "./Label";
 import PfaListbox from "./PfaListbox";
-
-const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"] as const;
-
-const createFeedbackSchema = z.object({
-  title: z.string().min(10, "Title must be 10 characters or more"),
-  category: z.enum(categories),
-  details: z.string().min(50, "Details must be 50 characters or more"),
-});
-
-type CreateFeedbackSchema = z.infer<typeof createFeedbackSchema>;
 
 export default function Form() {
   const router = useRouter();
@@ -43,15 +36,17 @@ export default function Form() {
   }
 
   const onSubmit: SubmitHandler<CreateFeedbackSchema> = (data) => {
-    console.log(data);
-    // fetch("/api/feedback", {
-    //   method: "POST",
-    //   body: new FormData(e.currentTarget),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+    fetch("/api/feedback", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -60,7 +55,7 @@ export default function Form() {
         Feedback Title
       </Label>
       <HelpText className="mb-4">Add a short, descriptive headline</HelpText>
-      <input className="form-input mb-6" id="title" {...register("title")} />
+      <input {...register("title")} id="title" className="form-input mb-6" />
       {errors.title && <span>{errors.title.message}</span>}
 
       <Field className="mb-6">
@@ -76,8 +71,8 @@ export default function Form() {
           control={control}
           render={({ field: { onChange } }) => (
             <PfaListbox
-              options={categories}
               onChange={onChange}
+              options={categories}
               value={selectedCategory}
             />
           )}
@@ -91,10 +86,10 @@ export default function Form() {
         Include any specific comments on what should be improved, added, etc.
       </HelpText>
       <textarea
-        rows={5}
-        className="form-input mb-10"
-        id="details"
         {...register("details")}
+        rows={5}
+        id="details"
+        className="form-input mb-10"
       ></textarea>
       {errors.details && <span>{errors.details.message}</span>}
 
