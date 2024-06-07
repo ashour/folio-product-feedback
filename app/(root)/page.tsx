@@ -1,10 +1,10 @@
 import { type Feedback } from "@prisma/client";
-import Button from "../_components/Button";
-import IconDetective from "../_components/icons/IconDetective";
+import ErrorAlert from "../_components/ErrorAlert";
 import NavLayout from "../_layout/NavLayout";
+import EmptyState from "./_components/EmptyState";
 
 export default async function Home() {
-  let feedbackItems: Feedback[] = [];
+  let feedbackItems: Feedback[] | undefined = [];
   let error: string | undefined;
 
   try {
@@ -16,23 +16,9 @@ export default async function Home() {
   return (
     <NavLayout>
       <main className="mx-6 mt-8">
-        {error && (
-          <div className="rounded-5px bg-danger px-3 py-2 text-body-1 text-white">
-            Error: {error}
-          </div>
-        )}
+        {error && <ErrorAlert>{error}</ErrorAlert>}
 
-        {feedbackItems.length === 0 && (
-          <section className="flex min-h-[460px] flex-col items-center justify-center rounded-10px bg-white px-6 py-20 text-center">
-            <IconDetective />
-            <h3 className="mb-4 text-h3">There is no feedback yet.</h3>
-            <p className="mb-6 text-body-1 text-slate-500">
-              Got a suggestion? Found a bug that needs to be squashed? We love
-              hearing about new ideas to improve our app.
-            </p>
-            <Button variant="purple">Add Feedback</Button>
-          </section>
-        )}
+        {feedbackItems?.length === 0 && <EmptyState />}
       </main>
     </NavLayout>
   );
