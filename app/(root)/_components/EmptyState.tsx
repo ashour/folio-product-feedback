@@ -1,5 +1,6 @@
 import Button from "@/app/_components/Button";
 import IconDetective from "@/app/_components/icons/IconDetective";
+import Link from "next/link";
 
 export default function EmptyState() {
   return (
@@ -10,7 +11,9 @@ export default function EmptyState() {
         Got a suggestion? Found a bug that needs to be squashed? We love hearing
         about new ideas to improve our app.
       </p>
-      <Button variant="purple">+ Add Feedback</Button>
+      <Button variant="purple" as={Link} href="/feedback/new">
+        + Add Feedback
+      </Button>
     </section>
   );
 }

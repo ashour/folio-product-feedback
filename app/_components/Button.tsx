@@ -48,7 +48,7 @@ export default function Button({
     <Component
       className={clsx(
         {
-          "flex items-center justify-center gap-1 rounded-10px py-3 text-center text-button":
+          "flex items-center justify-center gap-1 rounded-10px py-3 text-center text-button transition-colors":
             true,
           [colorVariants[variant]["default"]]: !disabled,
           [colorVariants[variant]["hover"]]: !underline,

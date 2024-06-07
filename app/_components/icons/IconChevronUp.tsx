@@ -1,4 +1,10 @@
-export default function IconChevronUp({ className }: { className?: string }) {
+export default function IconChevronUp({
+  stroke = "#4661E6",
+  className,
+}: {
+  stroke?: string;
+  className?: string;
+}) {
   return (
     <svg
       width="12"
@@ -8,7 +14,7 @@ export default function IconChevronUp({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <path d="M2 8L6 4L10 8" stroke="#4661E6" strokeWidth="2" />
+      <path d="M2 8L6 4L10 8" stroke={stroke} strokeWidth="2" />
     </svg>
   );
 }
