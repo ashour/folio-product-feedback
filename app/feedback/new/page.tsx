@@ -9,14 +9,21 @@ export const metadata: Metadata = {
   description: "A Next.js demo for collecting feedback from users.",
 };
 
-export default async function NewFeedback() {
+export default async function NewFeedback({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | undefined };
+}) {
   return (
-    <SimpleLayout className="mx-auto max-w-[540px]">
+    <SimpleLayout
+      className="mx-auto max-w-[540px]"
+      backUrl={searchParams?.backTo}
+    >
       <main className="relative rounded-10px bg-white px-6 pb-6 pt-11">
         <GradientIcon className="absolute -top-5" />
         <h1 className="mb-6 text-h3 ">Create New Feedback</h1>
 
-        <Form />
+        <Form cancelUrl={searchParams?.backTo} />
       </main>
     </SimpleLayout>
   );

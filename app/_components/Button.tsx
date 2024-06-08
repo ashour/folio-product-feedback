@@ -1,14 +1,15 @@
 import clsx from "clsx";
+import { LinkProps } from "next/link";
 
 type ButtonProps = {
   variant: "purple" | "blue" | "slate" | "danger" | "ghost";
   as?: React.ElementType;
+  href?: LinkProps["href"];
   underline?: boolean;
   slim?: boolean;
   className?: string;
   children: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const colorVariants = {
   ghost: {
@@ -35,6 +36,7 @@ const colorVariants = {
 
 export default function Button({
   variant,
+  href,
   as = "button",
   underline = false,
   slim = false,
@@ -48,7 +50,7 @@ export default function Button({
     <Component
       className={clsx(
         {
-          "flex items-center justify-center gap-1 rounded-10px py-3 text-center text-button":
+          "flex items-center justify-center gap-1 rounded-10px py-3 text-center text-button transition-colors":
             true,
           [colorVariants[variant]["default"]]: !disabled,
           [colorVariants[variant]["hover"]]: !underline,
@@ -59,6 +61,7 @@ export default function Button({
         },
         className,
       )}
+      href={href}
       {...props}
     >
       {children}
