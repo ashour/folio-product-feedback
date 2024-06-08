@@ -19,7 +19,14 @@ export default function TopControlBar() {
         </p>
       </div>
 
-      <Button variant="purple" as={Link} href="/feedback/new">
+      <Button
+        as={Link}
+        variant="purple"
+        href={{
+          pathname: "/feedback/new",
+          query: { backTo: "/" },
+        }}
+      >
         + Add Feedback
       </Button>
     </section>

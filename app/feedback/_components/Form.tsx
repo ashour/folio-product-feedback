@@ -5,7 +5,7 @@ import IconCross from "@/app/_components/icons/IconCross";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { categories } from "../_lib/categories";
@@ -17,8 +17,7 @@ import HelpText from "./HelpText";
 import Label from "./Label";
 import PfaListbox from "./PfaListbox";
 
-export default function Form() {
-  const router = useRouter();
+export default function Form({ cancelUrl }: { cancelUrl?: string }) {
   const {
     watch,
     reset,
@@ -34,10 +33,6 @@ export default function Form() {
   });
 
   const selectedCategory = watch("category");
-
-  function backToPrevPage() {
-    router.back();
-  }
 
   const onSubmit: SubmitHandler<CreateFeedbackSchema> = async (data) => {
     toast("Adding feedback...");
@@ -142,9 +137,10 @@ export default function Form() {
           Add Feedback
         </Button>
         <Button
+          as={Link}
           type="button"
           variant="slate"
-          onClick={backToPrevPage}
+          href={cancelUrl || "/"}
           disabled={isSubmitting}
         >
           Cancel
