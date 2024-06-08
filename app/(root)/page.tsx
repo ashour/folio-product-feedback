@@ -3,6 +3,7 @@ import ErrorAlert from "../_components/ErrorAlert";
 import FeedbackItem from "../_components/FeedbackItem";
 import NavLayout from "../_layout/NavLayout";
 import EmptyState from "./_components/EmptyState";
+import TopControlBar from "./_components/TopControlBar";
 import { fetchFeedback } from "./_lib/fetchFeedback";
 
 export default async function Home() {
@@ -15,15 +16,19 @@ export default async function Home() {
     error = (err as Error).message;
   }
 
+  const hasFeedbackItems = feedbackItems && feedbackItems.length > 0;
+
   return (
     <NavLayout>
-      <main className="mx-6 mt-8">
-        {error && <ErrorAlert>{error}</ErrorAlert>}
-        {feedbackItems?.length === 0 && <EmptyState />}
+      <TopControlBar />
 
-        {feedbackItems && feedbackItems.length > 0 && (
+      <main className="mx-6 mt-8 md:mx-0 lg:mt-6">
+        {error && <ErrorAlert>{error}</ErrorAlert>}
+        {!hasFeedbackItems && <EmptyState />}
+
+        {hasFeedbackItems && (
           <section className="flex flex-col gap-3 pb-14">
-            {feedbackItems.map((feedback) => (
+            {feedbackItems!.map((feedback) => (
               <FeedbackItem key={feedback.id} feedback={feedback} />
             ))}
           </section>

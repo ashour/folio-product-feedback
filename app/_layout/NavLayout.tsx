@@ -10,10 +10,7 @@ export default function NavLayout({
       <section className="max-md:h-[72px] md:mb-10 lg:min-w-64">
         <Nav />
       </section>
-      <section className="md:mx-[5.21%] lg:mx-0 lg:flex-1">
-        <section className="h-14 bg-slate-600"></section>
-        {children}
-      </section>
+      <section className="md:mx-[5.21%] lg:mx-0 lg:flex-1">{children}</section>
     </div>
   );
 }
