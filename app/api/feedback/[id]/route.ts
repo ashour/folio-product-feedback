@@ -1,10 +1,13 @@
+import { mockLoggedInUser } from "@/app/_lib/auth";
 import db from "@/app/_lib/db";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
-import { mockLoggedInUser } from "../../_lib/auth";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const requestData = await req.json();
   const { success, data: safeData } = feedbackSchema.safeParse(requestData);
 
@@ -15,20 +18,23 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const author = await mockLoggedInUser();
 
   try {
-    await db.feedback.create({
+    await db.feedback.update({
+      where: { id: params.id as string },
       data: {
         title: safeData.title,
         category: safeData.category,
         details: safeData.details,
-        authorId: author.id,
+        status: safeData.status,
       },
     });
 
     revalidatePath("/");
+    revalidatePath(`/feedback/${params.id}`);
+    revalidatePath(`/feedback/${params.id}/edit`);
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: "Failed to add feedback" },
+      { message: "Failed to update feedback" },
       { status: 500 },
     );
   }

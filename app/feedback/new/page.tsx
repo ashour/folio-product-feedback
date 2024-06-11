@@ -23,7 +23,23 @@ export default async function NewFeedback({
         <GradientIcon className="absolute -top-5" />
         <h1 className="mb-6 text-h3 ">Create New Feedback</h1>
 
-        <Form cancelUrl={searchParams?.backTo} />
+        <Form
+          submitUrl="/api/feedback"
+          submitMethod="POST"
+          toasts={{
+            saving: "Adding feedback...",
+            saved: "Feedback added successfully",
+            error: "Error: failed to add feedback",
+          }}
+          saveButtonText="Add Feedback"
+          defaultValues={{
+            title: "",
+            category: "Feature",
+            details: "",
+          }}
+          resetAfterSubmit
+          cancelUrl={searchParams?.backTo}
+        />
       </main>
     </SimpleLayout>
   );

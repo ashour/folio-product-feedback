@@ -9,43 +9,64 @@ import Link from "next/link";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { categories } from "../_lib/categories";
-import {
-  createFeedbackSchema,
-  type CreateFeedbackSchema,
-} from "../_validation/createFeedbackSchema";
+import { statuses } from "../_lib/statuses";
+import { FeedbackSchema, feedbackSchema } from "../_validation/schemas";
 import HelpText from "./HelpText";
 import Label from "./Label";
 import PfaListbox from "./PfaListbox";
 
-export default function Form({ cancelUrl }: { cancelUrl?: string }) {
+type FormProps = {
+  toasts: {
+    saving: string;
+    saved: string;
+    error: string;
+  };
+  submitUrl: string;
+  submitMethod: "POST" | "PUT";
+  cancelUrl?: string;
+  saveButtonText: string;
+  resetAfterSubmit: boolean;
+  defaultValues?: FeedbackSchema;
+};
+
+export default function Form({
+  toasts,
+  submitUrl,
+  cancelUrl,
+  submitMethod,
+  defaultValues,
+  saveButtonText,
+  resetAfterSubmit,
+}: FormProps) {
   const {
     watch,
     reset,
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
-  } = useForm<CreateFeedbackSchema>({
-    resolver: zodResolver(createFeedbackSchema),
-    defaultValues: {
-      category: categories[0],
-    },
+    formState: { errors, isSubmitting },
+  } = useForm<FeedbackSchema>({
+    resolver: zodResolver(feedbackSchema),
+    defaultValues,
   });
 
   const selectedCategory = watch("category");
+  const selectedStatus = watch("status");
 
-  const onSubmit: SubmitHandler<CreateFeedbackSchema> = async (data) => {
-    toast("Adding feedback...");
+  const onSubmit: SubmitHandler<FeedbackSchema> = async (data) => {
+    toast(toasts.saving);
     try {
-      const result = await fetch("/api/feedback", {
-        method: "POST",
+      const result = await fetch(submitUrl, {
+        method: submitMethod,
         body: JSON.stringify(data),
       });
       if (result.ok) {
-        reset();
-        toast("Feedback added successfully");
+        if (resetAfterSubmit) {
+          reset();
+        }
+        toast(toasts.saved);
       } else {
-        toast("Error: failed to add feedback", {
+        toast(toasts.error, {
           autoClose: false,
           type: "error",
         });
@@ -116,6 +137,27 @@ export default function Form({ cancelUrl }: { cancelUrl?: string }) {
         />
       </Field>
 
+      {defaultValues?.status && (
+        <Field className="mt-6">
+          <HuiLabel className="mb-1">
+            <Label component="span">Update status</Label>
+          </HuiLabel>
+          <HelpText className="mb-4">Change feature state</HelpText>
+
+          <Controller
+            name="status"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <PfaListbox
+                onChange={onChange}
+                options={statuses}
+                value={selectedStatus!}
+              />
+            )}
+          />
+        </Field>
+      )}
+
       <Label htmlFor="details" className="mb-1 mt-6">
         Feedback Detail
       </Label>
@@ -134,7 +176,7 @@ export default function Form({ cancelUrl }: { cancelUrl?: string }) {
 
       <div className="mt-10 flex flex-col gap-4 md:flex-row-reverse">
         <Button type="submit" variant="purple" disabled={isSubmitting}>
-          Add Feedback
+          {saveButtonText}
         </Button>
         <Button
           as={Link}
