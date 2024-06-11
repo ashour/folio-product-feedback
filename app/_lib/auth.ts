@@ -1,11 +1,11 @@
-import { PrismaClient, User } from "@prisma/client";
+import { User } from "@prisma/client";
+import db from "./db";
 
 let _mockLoggedInUser: User | null;
 
 export async function mockLoggedInUser(): Promise<User> {
   if (!_mockLoggedInUser) {
-    const prisma = new PrismaClient();
-    _mockLoggedInUser = await prisma.user.findFirstOrThrow({
+    _mockLoggedInUser = await db.user.findFirstOrThrow({
       where: { username: "thebigyou" },
     });
   }
