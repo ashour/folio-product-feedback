@@ -1,5 +1,5 @@
+import db from "@/app/_lib/db";
 import { createFeedbackSchema } from "@/app/feedback/_validation/createFeedbackSchema";
-import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { mockLoggedInUser } from "../../_lib/auth";
@@ -13,11 +13,10 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ message: "Invalid data" }, { status: 400 });
   }
 
-  const prisma = new PrismaClient();
   const author = await mockLoggedInUser();
 
   try {
-    await prisma.feedback.create({
+    await db.feedback.create({
       data: {
         title: safeData.title,
         category: safeData.category,

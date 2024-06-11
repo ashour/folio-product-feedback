@@ -1,10 +1,9 @@
-import { Feedback, PrismaClient } from "@prisma/client";
+import db from "@/app/_lib/db";
+import { Feedback } from "@prisma/client";
 
 export async function fetchFeedback(): Promise<Feedback[]> {
-  const primsa = new PrismaClient();
-
   try {
-    return await primsa.feedback.findMany({
+    return await db.feedback.findMany({
       orderBy: {
         createdAt: "desc",
       },
@@ -13,6 +12,6 @@ export async function fetchFeedback(): Promise<Feedback[]> {
     console.log(error);
     throw new Error("Failed to fetch feedback");
   } finally {
-    await primsa.$disconnect();
+    await db.$disconnect();
   }
 }
