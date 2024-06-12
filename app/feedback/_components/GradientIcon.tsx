@@ -1,7 +1,12 @@
-import IconPlusSign from "@/app/_components/icons/IconPlusSign";
 import clsx from "clsx";
 
-export default function GradientIcon({ className }: { className?: string }) {
+export default function GradientIcon({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <div
       className={clsx(
@@ -9,9 +14,7 @@ export default function GradientIcon({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex h-7 w-7 items-center justify-center">
-        <IconPlusSign />
-      </div>
+      <div className="flex h-7 w-7 items-center justify-center">{children}</div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import IconPlusSign from "@/app/_components/icons/IconPlusSign";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
 import { title } from "@/app/_lib/formatting";
 import { Metadata } from "next";
@@ -20,10 +21,28 @@ export default async function NewFeedback({
       backUrl={searchParams?.backTo}
     >
       <main className="relative rounded-10px bg-white px-6 pb-6 pt-11">
-        <GradientIcon className="absolute -top-5" />
+        <GradientIcon className="absolute -top-5">
+          <IconPlusSign />
+        </GradientIcon>
         <h1 className="mb-6 text-h3 ">Create New Feedback</h1>
 
-        <Form cancelUrl={searchParams?.backTo} />
+        <Form
+          submitUrl="/api/feedback"
+          submitMethod="POST"
+          toasts={{
+            saving: "Adding feedback...",
+            saved: "Feedback added successfully",
+            error: "Error: failed to add feedback",
+          }}
+          saveButtonText="Add Feedback"
+          defaultValues={{
+            title: "",
+            category: "Feature",
+            details: "",
+          }}
+          resetAfterSubmit
+          cancelUrl={searchParams?.backTo}
+        />
       </main>
     </SimpleLayout>
   );

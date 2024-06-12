@@ -1,13 +1,12 @@
 import db from "@/app/_lib/db";
-import { createFeedbackSchema } from "@/app/feedback/_validation/createFeedbackSchema";
+import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { mockLoggedInUser } from "../../_lib/auth";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const requestData = await req.json();
-  const { success, data: safeData } =
-    createFeedbackSchema.safeParse(requestData);
+  const { success, data: safeData } = feedbackSchema.safeParse(requestData);
 
   if (!success) {
     return NextResponse.json({ message: "Invalid data" }, { status: 400 });
@@ -34,5 +33,5 @@ export async function POST(req: Request, res: Response) {
     );
   }
 
-  return Response.json({ status: "success" });
+  return NextResponse.json({ status: "success" });
 }

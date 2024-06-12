@@ -5,3 +5,5 @@ export const categories = [
   "Enhancement",
   "Bug",
 ] as const;
+
+export type Category = (typeof categories)[number];
