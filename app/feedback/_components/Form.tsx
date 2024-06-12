@@ -90,7 +90,7 @@ export default function Form({
     try {
       const result = await fetch(deleteUrl!, { method: "DELETE" });
       if (result.ok) {
-        toast("Feedback deleted successfully");
+        toast("Feedback deleted; going back home...");
         setTimeout(() => {
           router.push("/");
         }, 2000);

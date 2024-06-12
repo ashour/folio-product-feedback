@@ -8,18 +8,9 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const requestData = await req.json();
-  const { success, data: safeData } = feedbackSchema.safeParse(requestData);
-
-  if (!success) {
-    return NextResponse.json({ message: "Invalid data" }, { status: 400 });
-  }
-
-  const author = await mockLoggedInUser();
   const feedback = await db.feedback.findUnique({
     where: { id: params.id as string },
   });
-
   if (!feedback) {
     return NextResponse.json(
       { message: "Feedback not found" },
@@ -27,11 +18,18 @@ export async function PUT(
     );
   }
 
+  const author = await mockLoggedInUser();
   if (feedback.authorId !== author.id) {
     return NextResponse.json(
       { message: "You are not allowed to update this feedback" },
       { status: 403 },
     );
+  }
+
+  const requestData = await req.json();
+  const { success, data: safeData } = feedbackSchema.safeParse(requestData);
+  if (!success) {
+    return NextResponse.json({ message: "Invalid data" }, { status: 400 });
   }
 
   try {
@@ -63,11 +61,9 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const author = await mockLoggedInUser();
   const feedback = await db.feedback.findUnique({
     where: { id: params.id as string },
   });
-
   if (!feedback) {
     return NextResponse.json(
       { message: "Feedback not found" },
@@ -75,6 +71,7 @@ export async function DELETE(
     );
   }
 
+  const author = await mockLoggedInUser();
   if (feedback.authorId !== author.id) {
     return NextResponse.json(
       { message: "You are not allowed to delete this feedback" },
