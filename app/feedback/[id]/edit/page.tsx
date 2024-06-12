@@ -51,6 +51,7 @@ export default async function EditFeedback({
             status: feedbackItem.status as Status,
           }}
           resetAfterSubmit={false}
+          deleteUrl={`/api/feedback/${params.id}`}
           cancelUrl={searchParams?.backTo}
         />
       </main>

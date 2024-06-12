@@ -58,3 +58,43 @@ export async function PUT(
 
   return NextResponse.json({ status: "success" });
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const author = await mockLoggedInUser();
+  const feedback = await db.feedback.findUnique({
+    where: { id: params.id as string },
+  });
+
+  if (!feedback) {
+    return NextResponse.json(
+      { message: "Feedback not found" },
+      { status: 404 },
+    );
+  }
+
+  if (feedback.authorId !== author.id) {
+    return NextResponse.json(
+      { message: "You are not allowed to delete this feedback" },
+      { status: 403 },
+    );
+  }
+
+  try {
+    await db.feedback.delete({ where: { id: params.id as string } });
+
+    revalidatePath("/");
+    revalidatePath(`/feedback/${params.id}`);
+    revalidatePath(`/feedback/${params.id}/edit`);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Failed to delete feedback" },
+      { status: 500 },
+    );
+  }
+
+  return NextResponse.json({ status: "success" });
+}
