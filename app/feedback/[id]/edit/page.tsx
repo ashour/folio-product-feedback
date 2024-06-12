@@ -1,12 +1,8 @@
 import IconPen from "@/app/_components/icons/IconPen";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
-import { mockLoggedInUser } from "@/app/_lib/auth";
-import db from "@/app/_lib/db";
-import { notFound } from "next/navigation";
-import Form from "../../_components/Form";
+import { Suspense } from "react";
+import EditForm from "../../_components/EditForm";
 import GradientIcon from "../../_components/GradientIcon";
-import { Category } from "../../_lib/categories";
-import { Status } from "../../_lib/statuses";
 
 export default async function EditFeedback({
   params,
@@ -15,18 +11,6 @@ export default async function EditFeedback({
   params: { id: string };
   searchParams?: { [key: string]: string | undefined };
 }) {
-  const feedbackItem = await db.feedback.findFirst({
-    where: { id: params.id },
-  });
-
-  if (!feedbackItem) {
-    notFound();
-  }
-
-  if (feedbackItem.authorId !== (await mockLoggedInUser()).id) {
-    notFound();
-  }
-
   return (
     <SimpleLayout
       className="mx-auto max-w-[540px]"
@@ -36,27 +20,10 @@ export default async function EditFeedback({
         <GradientIcon className="absolute -top-5">
           <IconPen className="relative bottom-[0.5px] start-[1px]" />
         </GradientIcon>
-        <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
-        <Form
-          submitUrl={`/api/feedback/${params.id}`}
-          submitMethod="PUT"
-          toasts={{
-            saving: "Saving feedback...",
-            saved: "Feedback updated successfully",
-            error: "Error: failed to update feedback",
-          }}
-          saveButtonText="Save Changes"
-          defaultValues={{
-            title: feedbackItem.title,
-            category: feedbackItem.category as Category,
-            details: feedbackItem.details,
-            status: feedbackItem.status as Status,
-          }}
-          resetAfterSubmit={false}
-          deleteUrl={`/api/feedback/${params.id}`}
-          cancelUrl={searchParams?.backTo}
-        />
+        <Suspense fallback={<div className="mb-6 text-center">Loading...</div>}>
+          <EditForm id={params.id} cancelUrl={searchParams?.backTo} />
+        </Suspense>
       </main>
     </SimpleLayout>
   );
