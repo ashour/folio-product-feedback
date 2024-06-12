@@ -6,6 +6,7 @@ import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { categories } from "../_lib/categories";
@@ -82,12 +83,17 @@ export default function Form({
     }
   };
 
+  const router = useRouter();
+
   const onDelete = async () => {
     toast("Deleting feedback...");
     try {
       const result = await fetch(deleteUrl!, { method: "DELETE" });
       if (result.ok) {
         toast("Feedback deleted successfully");
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
       } else {
         toast("Error: failed to delete feedback", {
           autoClose: false,
