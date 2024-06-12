@@ -16,6 +16,23 @@ export async function PUT(
   }
 
   const author = await mockLoggedInUser();
+  const feedback = await db.feedback.findUnique({
+    where: { id: params.id as string },
+  });
+
+  if (!feedback) {
+    return NextResponse.json(
+      { message: "Feedback not found" },
+      { status: 404 },
+    );
+  }
+
+  if (feedback.authorId !== author.id) {
+    return NextResponse.json(
+      { message: "You are not allowed to update this feedback" },
+      { status: 403 },
+    );
+  }
 
   try {
     await db.feedback.update({

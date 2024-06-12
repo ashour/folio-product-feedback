@@ -1,4 +1,5 @@
 import SimpleLayout from "@/app/_layout/SimpleLayout";
+import { mockLoggedInUser } from "@/app/_lib/auth";
 import db from "@/app/_lib/db";
 import { notFound } from "next/navigation";
 import Form from "../../_components/Form";
@@ -18,7 +19,11 @@ export default async function EditFeedback({
   });
 
   if (!feedbackItem) {
-    return notFound();
+    notFound();
+  }
+
+  if (feedbackItem.authorId !== (await mockLoggedInUser()).id) {
+    notFound();
   }
 
   return (
