@@ -215,7 +215,14 @@ export default function Form({
           Cancel
         </Button>
         {!deleteUrl ? null : (
-          <Button type="button" variant="danger" onClick={onDelete}>
+          <Button
+            type="button"
+            variant="danger"
+            onClick={() =>
+              confirm("Are you sure you want to delete this?") && onDelete()
+            }
+            className="md:me-auto"
+          >
             Delete
           </Button>
         )}
