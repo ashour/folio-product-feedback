@@ -1,3 +1,5 @@
+"use server";
+
 import db from "@/app/_lib/db";
 import { Feedback } from "@prisma/client";
 
