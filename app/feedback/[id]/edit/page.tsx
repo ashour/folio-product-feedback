@@ -1,3 +1,4 @@
+import IconPen from "@/app/_components/icons/IconPen";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
 import { mockLoggedInUser } from "@/app/_lib/auth";
 import db from "@/app/_lib/db";
@@ -32,7 +33,9 @@ export default async function EditFeedback({
       backUrl={searchParams?.backTo}
     >
       <main className="relative rounded-10px bg-white px-6 pb-6 pt-11">
-        <GradientIcon className="absolute -top-5" />
+        <GradientIcon className="absolute -top-5">
+          <IconPen className="relative bottom-[0.5px] start-[1px]" />
+        </GradientIcon>
         <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
         <Form
