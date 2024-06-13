@@ -1,5 +1,5 @@
 import { mockLoggedInUser } from "@/app/_lib/auth";
-import db from "@/app/_lib/db";
+import prisma from "@/app/_lib/prismaSingleton";
 import { notFound } from "next/navigation";
 import { Category } from "../_lib/categories";
 import { Status } from "../_lib/statuses";
@@ -12,7 +12,7 @@ export default async function EditForm({
   id: string;
   cancelUrl: string | undefined;
 }) {
-  const feedbackItem = await db.feedback.findFirst({
+  const feedbackItem = await prisma.feedback.findFirst({
     where: { id },
   });
 

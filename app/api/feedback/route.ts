@@ -1,4 +1,4 @@
-import db from "@/app/_lib/db";
+import prisma from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const author = await mockLoggedInUser();
 
   try {
-    await db.feedback.create({
+    await prisma.feedback.create({
       data: {
         title: safeData.title,
         category: safeData.category,
