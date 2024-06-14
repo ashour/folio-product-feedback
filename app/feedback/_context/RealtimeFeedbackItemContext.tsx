@@ -29,7 +29,9 @@ export const RealtimeFeedbackItemProvider = ({
           table: "pfa_feedbacks",
         },
         (payload) => {
-          setRealtimeFeedbackItem(payload.new as Feedback);
+          if (payload.new.id === feedbackItem.id) {
+            setRealtimeFeedbackItem(payload.new as Feedback);
+          }
         },
       )
       .subscribe();
