@@ -1,5 +1,5 @@
 import { mockLoggedInUser } from "@/app/_lib/auth";
-import db from "@/app/_lib/db";
+import prisma from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +8,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const feedback = await db.feedback.findUnique({
+  const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });
   if (!feedback) {
@@ -33,7 +33,7 @@ export async function PUT(
   }
 
   try {
-    await db.feedback.update({
+    await prisma.feedback.update({
       where: { id: params.id as string },
       data: {
         title: safeData.title,
@@ -61,7 +61,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const feedback = await db.feedback.findUnique({
+  const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });
   if (!feedback) {
@@ -80,7 +80,7 @@ export async function DELETE(
   }
 
   try {
-    await db.feedback.delete({ where: { id: params.id as string } });
+    await prisma.feedback.delete({ where: { id: params.id as string } });
 
     revalidatePath("/");
     revalidatePath(`/feedback/${params.id}`);

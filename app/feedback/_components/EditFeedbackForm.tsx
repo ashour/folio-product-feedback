@@ -1,35 +1,19 @@
-import { mockLoggedInUser } from "@/app/_lib/auth";
-import db from "@/app/_lib/db";
-import { notFound } from "next/navigation";
+"use client";
+
+import { useRealtimeFeedbackItem } from "../_context/RealtimeFeedbackItemContext";
 import { Category } from "../_lib/categories";
 import { Status } from "../_lib/statuses";
 import Form from "./Form";
 
-export default async function EditForm({
-  id,
-  cancelUrl,
-}: {
-  id: string;
-  cancelUrl: string | undefined;
-}) {
-  const feedbackItem = await db.feedback.findFirst({
-    where: { id },
-  });
-
-  if (!feedbackItem) {
-    notFound();
-  }
-
-  if (feedbackItem.authorId !== (await mockLoggedInUser()).id) {
-    notFound();
-  }
+export default function EditFeedbackForm() {
+  const feedbackItem = useRealtimeFeedbackItem();
 
   return (
     <>
       <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
       <Form
-        submitUrl={`/api/feedback/${id}`}
+        submitUrl={`/api/feedback/${feedbackItem.id}`}
         submitMethod="PUT"
         toasts={{
           saving: "Saving feedback...",
@@ -44,8 +28,7 @@ export default async function EditForm({
           status: feedbackItem.status as Status,
         }}
         resetAfterSubmit={false}
-        deleteUrl={`/api/feedback/${id}`}
-        cancelUrl={cancelUrl}
+        deleteUrl={`/api/feedback/${feedbackItem.id}`}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { LinkProps } from "next/link";
 
-type ButtonProps = {
+export type ButtonProps = {
   variant: "purple" | "blue" | "slate" | "danger" | "ghost";
   as?: React.ElementType;
   href?: LinkProps["href"];

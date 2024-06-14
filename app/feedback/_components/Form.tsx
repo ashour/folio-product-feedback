@@ -2,10 +2,10 @@
 
 import Button from "@/app/_components/Button";
 import IconCross from "@/app/_components/icons/IconCross";
+import { useModalContext } from "@/app/_context/ModalContext";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,7 +24,6 @@ type FormProps = {
   };
   submitUrl: string;
   submitMethod: "POST" | "PUT";
-  cancelUrl?: string;
   deleteUrl?: string;
   saveButtonText: string;
   resetAfterSubmit: boolean;
@@ -33,7 +32,6 @@ type FormProps = {
 
 export default function Form({
   toasts,
-  cancelUrl,
   deleteUrl,
   submitUrl,
   submitMethod,
@@ -41,6 +39,8 @@ export default function Form({
   saveButtonText,
   resetAfterSubmit,
 }: FormProps) {
+  const { setIsModalOpen } = useModalContext();
+
   const {
     watch,
     reset,
@@ -212,11 +212,10 @@ export default function Form({
           {saveButtonText}
         </Button>
         <Button
-          as={Link}
           type="button"
           variant="slate"
-          href={cancelUrl || "/"}
           disabled={isSubmitting}
+          onClick={() => setIsModalOpen(false)}
         >
           Cancel
         </Button>

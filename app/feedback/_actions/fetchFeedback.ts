@@ -1,19 +1,19 @@
 "use server";
 
-import db from "@/app/_lib/db";
+import prisma from "@/app/_lib/prismaSingleton";
 import { Feedback } from "@prisma/client";
 
 export async function fetchFeedback(): Promise<Feedback[]> {
   try {
-    return await db.feedback.findMany({
+    return await prisma.feedback.findMany({
       orderBy: {
-        createdAt: "desc",
+        updatedAt: "desc",
       },
     });
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch feedback");
   } finally {
-    await db.$disconnect();
+    await prisma.$disconnect();
   }
 }

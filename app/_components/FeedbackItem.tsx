@@ -1,34 +1,58 @@
 "use client";
 
 import { Feedback } from "@prisma/client";
+import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Pill from "./Pill";
 import IconChatBubble from "./icons/IconChatBubble";
 import IconChevronUp from "./icons/IconChevronUp";
 
-export default function FeedbackItem({ feedback }: { feedback: Feedback }) {
+export default function FeedbackItem({
+  feedbackItem,
+}: {
+  feedbackItem: Feedback;
+}) {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isFeedbackDetailsPage = pathname == `/feedback/${feedbackItem.id}`;
 
   function goToFeedbackDetails() {
-    router.push(`/feedback/${feedback.id}`);
+    router.push(`/feedback/${feedbackItem.id}`);
   }
 
   return (
     <article
-      className="group grid cursor-pointer grid-cols-2 gap-4 rounded-10px bg-white p-4 md:grid-cols-[max-content_auto_max-content] md:gap-6 md:px-8 md:py-7"
-      onClick={goToFeedbackDetails}
+      className={clsx({
+        "group grid grid-cols-2 gap-4 rounded-10px bg-white p-6 md:grid-cols-[max-content_auto_max-content] md:gap-6 md:px-8 md:py-7":
+          true,
+        "cursor-pointer": !isFeedbackDetailsPage,
+      })}
+      onClick={isFeedbackDetailsPage ? () => {} : goToFeedbackDetails}
     >
       <div className="col-span-2 md:order-2 md:col-span-1">
-        <h2 className="mb-[9px] text-body-3 font-bold tracking-[-0.18px] group-hover:text-blue md:mb-1 md:text-h3">
-          <Link href={`/feedback/${feedback.id}`}>{feedback.title}</Link>
+        <h2
+          className={clsx({
+            "mb-[9px] text-body-3 font-bold tracking-[-0.18px] md:mb-1 md:text-h3":
+              true,
+            "group-hover:text-blue": !isFeedbackDetailsPage,
+          })}
+        >
+          {isFeedbackDetailsPage ? (
+            feedbackItem.title
+          ) : (
+            <Link href={`/feedback/${feedbackItem.id}`}>
+              {feedbackItem.title}
+            </Link>
+          )}
         </h2>
         <p className="mb-2 text-body-3 font-normal text-slate-500 md:mb-3 md:text-body-1">
-          {feedback.details}
+          {feedbackItem.details}
         </p>
         <div>
           <Pill>
-            <span className="text-blue">{feedback.category}</span>
+            <span className="text-blue">{feedbackItem.category}</span>
           </Pill>
         </div>
       </div>
