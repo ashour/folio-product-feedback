@@ -9,19 +9,19 @@ import {
 } from "react";
 
 const ModalContext = createContext<{
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}>({ isOpen: false, setIsOpen: () => {} });
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+}>({ isModalOpen: false, setIsModalOpen: () => {} });
 
 export const ModalStateProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ isOpen, setIsOpen }}>
+    <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
       {children}
     </ModalContext.Provider>
   );

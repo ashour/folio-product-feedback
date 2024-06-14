@@ -1,7 +1,7 @@
 import FormModal from "@/app/_components/FormModal";
 import GradientIcon from "@/app/_components/icons/GradientIcon";
 import IconPlusSign from "@/app/_components/icons/IconPlusSign";
-import { ModalStateProvider } from "@/app/_context/FormModalContext";
+import { ModalStateProvider } from "@/app/_context/ModalContext";
 import NavLayout from "@/app/_layout/NavLayout";
 import { Suspense } from "react";
 import FeedbackIndex from "../feedback/_components/FeedbackIndex";

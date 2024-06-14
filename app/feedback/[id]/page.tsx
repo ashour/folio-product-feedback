@@ -1,7 +1,7 @@
 import FormModal from "@/app/_components/FormModal";
 import GradientIcon from "@/app/_components/icons/GradientIcon";
 import IconPen from "@/app/_components/icons/IconPen";
-import { ModalStateProvider } from "@/app/_context/FormModalContext";
+import { ModalStateProvider } from "@/app/_context/ModalContext";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
 import { mockLoggedInUser } from "@/app/_lib/auth";
 import prisma from "@/app/_lib/prismaSingleton";

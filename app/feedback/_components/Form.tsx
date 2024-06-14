@@ -2,7 +2,7 @@
 
 import Button from "@/app/_components/Button";
 import IconCross from "@/app/_components/icons/IconCross";
-import { useModalContext } from "@/app/_context/FormModalContext";
+import { useModalContext } from "@/app/_context/ModalContext";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
@@ -39,7 +39,7 @@ export default function Form({
   saveButtonText,
   resetAfterSubmit,
 }: FormProps) {
-  const { setIsOpen } = useModalContext();
+  const { setIsModalOpen } = useModalContext();
 
   const {
     watch,
@@ -215,7 +215,7 @@ export default function Form({
           type="button"
           variant="slate"
           disabled={isSubmitting}
-          onClick={() => setIsOpen(false)}
+          onClick={() => setIsModalOpen(false)}
         >
           Cancel
         </Button>
