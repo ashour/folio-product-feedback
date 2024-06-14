@@ -8,12 +8,12 @@ import {
   type SetStateAction,
 } from "react";
 
-const FormModalContext = createContext<{
+const ModalContext = createContext<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }>({ isOpen: false, setIsOpen: () => {} });
 
-export const FormModalStateProvider = ({
+export const ModalStateProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -21,12 +21,12 @@ export const FormModalStateProvider = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <FormModalContext.Provider value={{ isOpen, setIsOpen }}>
+    <ModalContext.Provider value={{ isOpen, setIsOpen }}>
       {children}
-    </FormModalContext.Provider>
+    </ModalContext.Provider>
   );
 };
 
-export const useFormModalContext = () => {
-  return useContext(FormModalContext);
+export const useModalContext = () => {
+  return useContext(ModalContext);
 };

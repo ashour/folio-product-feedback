@@ -25,17 +25,24 @@ export default function RealtimeFeedbackIndex({
         },
         (payload) => {
           setRealtimeFeedbackItems((prevFeedbackItems) => {
-            const updatedFeedbackItems = [...prevFeedbackItems];
-            const changedFeedback = payload.new as Feedback;
+            let updatedFeedbackItems = [...prevFeedbackItems];
 
-            const feedbackIndex = updatedFeedbackItems.findIndex(
-              (feedback) => feedback.id === changedFeedback.id,
-            );
+            switch (payload.eventType) {
+              case "INSERT":
+                updatedFeedbackItems.unshift(payload.new as Feedback);
+                break;
 
-            if (feedbackIndex !== -1) {
-              updatedFeedbackItems[feedbackIndex] = changedFeedback;
-            } else {
-              updatedFeedbackItems.unshift(changedFeedback);
+              case "UPDATE":
+                const feedbackIndex = updatedFeedbackItems.findIndex(
+                  (feedback) => feedback.id === payload.old.id,
+                );
+                updatedFeedbackItems[feedbackIndex] = payload.new as Feedback;
+                break;
+
+              case "DELETE":
+                updatedFeedbackItems = updatedFeedbackItems.filter(
+                  (feedback) => feedback.id !== payload.old.id,
+                );
             }
 
             return updatedFeedbackItems;
@@ -51,8 +58,8 @@ export default function RealtimeFeedbackIndex({
 
   return (
     <section className="flex flex-col gap-3 pb-14">
-      {realtimeFeedbackItems.map((feedback) => (
-        <FeedbackItem key={feedback.id} feedback={feedback} />
+      {realtimeFeedbackItems.map((feedbackItem) => (
+        <FeedbackItem key={feedbackItem.id} feedbackItem={feedbackItem} />
       ))}
     </section>
   );

@@ -3,7 +3,7 @@
 import BackButton from "@/app/_layout/BackButton";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
 import { useEffect } from "react";
-import { useFormModalContext } from "../_context/FormModalContext";
+import { useModalContext } from "../_context/FormModalContext";
 
 export default function FormModal({
   form,
@@ -12,7 +12,7 @@ export default function FormModal({
   form: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const { isOpen, setIsOpen } = useFormModalContext();
+  const { isOpen, setIsOpen } = useModalContext();
 
   useEffect(() => {
     if (isOpen) {

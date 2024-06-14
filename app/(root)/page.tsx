@@ -1,17 +1,17 @@
 import FormModal from "@/app/_components/FormModal";
 import GradientIcon from "@/app/_components/icons/GradientIcon";
 import IconPlusSign from "@/app/_components/icons/IconPlusSign";
-import { FormModalStateProvider } from "@/app/_context/FormModalContext";
+import { ModalStateProvider } from "@/app/_context/FormModalContext";
 import NavLayout from "@/app/_layout/NavLayout";
 import { Suspense } from "react";
-import FeedbackIndex from "./_components/FeedbackIndex";
-import NewFeedbackForm from "./_components/NewFeedbackForm";
+import FeedbackIndex from "../feedback/_components/FeedbackIndex";
+import NewFeedbackForm from "../feedback/_components/NewFeedbackForm";
 import TopControlBar from "./_components/TopControlBar";
 
 export default async function Home() {
   return (
     <NavLayout>
-      <FormModalStateProvider>
+      <ModalStateProvider>
         <TopControlBar />
 
         <FormModal
@@ -37,7 +37,7 @@ export default async function Home() {
             </Suspense>
           </main>
         </FormModal>
-      </FormModalStateProvider>
+      </ModalStateProvider>
     </NavLayout>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useFormModalContext } from "../_context/FormModalContext";
+import { useModalContext } from "../_context/FormModalContext";
 
 type SimpleLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export default function SimpleLayout({
   children,
   className,
 }: SimpleLayoutProps) {
-  const { setIsOpen } = useFormModalContext();
+  const { setIsOpen } = useModalContext();
 
   return <div className={clsx("p-6", className)}>{children}</div>;
 }
