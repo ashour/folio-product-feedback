@@ -3,7 +3,7 @@
 import Button from "@/app/_components/Button";
 import IconChevronUp from "@/app/_components/icons/IconChevronUp";
 import IconLightBulb from "@/app/_components/icons/IconLightBulb";
-import { useFormModalContext } from "../_context/FormModalContext";
+import { useFormModalContext } from "@/app/_context/FormModalContext";
 
 export default function TopControlBar() {
   const { setIsOpen } = useFormModalContext();

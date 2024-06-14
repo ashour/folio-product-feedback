@@ -1,9 +1,12 @@
+import FormModal from "@/app/_components/FormModal";
+import GradientIcon from "@/app/_components/icons/GradientIcon";
+import IconPlusSign from "@/app/_components/icons/IconPlusSign";
+import { FormModalStateProvider } from "@/app/_context/FormModalContext";
+import NavLayout from "@/app/_layout/NavLayout";
 import { Suspense } from "react";
-import NavLayout from "../_layout/NavLayout";
 import FeedbackIndex from "./_components/FeedbackIndex";
-import FormModal from "./_components/FormModal";
+import NewFeedbackForm from "./_components/NewFeedbackForm";
 import TopControlBar from "./_components/TopControlBar";
-import { FormModalStateProvider } from "./_context/FormModalContext";
 
 export default async function Home() {
   return (
@@ -11,7 +14,17 @@ export default async function Home() {
       <FormModalStateProvider>
         <TopControlBar />
 
-        <FormModal>
+        <FormModal
+          form={
+            <>
+              <GradientIcon className="absolute -top-5">
+                <IconPlusSign />
+              </GradientIcon>
+              <h1 className="mb-6 text-h3 ">Create New Feedback</h1>
+              <NewFeedbackForm />
+            </>
+          }
+        >
           <main className="mx-6 mt-8 md:mx-0 lg:mt-6">
             <Suspense
               fallback={

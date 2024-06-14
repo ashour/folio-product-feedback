@@ -36,7 +36,7 @@ export default function PfaListbox({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 anchor="bottom"
-                className="w-[var(--button-width)] origin-top rounded-10px shadow-listbox [--anchor-gap:16px]"
+                className="z-30 w-[var(--button-width)] origin-top rounded-10px shadow-listbox [--anchor-gap:16px]"
               >
                 {options.map((option) => (
                   <ListboxOption
