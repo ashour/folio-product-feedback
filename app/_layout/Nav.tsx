@@ -11,7 +11,7 @@ export default function Nav() {
   const [isOpenOnMobile, setIsOpenOnMobile] = useState(false);
 
   return (
-    <nav className="max-md:fixed max-md:w-full md:flex md:gap-3 md:px-[5.21%] lg:flex-col lg:gap-6 lg:px-0">
+    <nav className="z-10 max-md:fixed max-md:w-full md:flex md:gap-3 md:px-[5.21%] lg:flex-col lg:gap-6 lg:px-0">
       <div className="brand-box flex h-44 flex-1 basis-1/3 items-center justify-center text-white max-md:h-[72px] max-md:justify-between md:rounded-10px lg:min-h-32">
         <div className="z-10 flex h-full w-full items-end px-5 pb-6 max-md:items-center max-md:py-5 max-md:ps-4 lg:min-h-32 lg:px-6 lg:pb-7">
           <div className="flex items-center gap-[6px]">

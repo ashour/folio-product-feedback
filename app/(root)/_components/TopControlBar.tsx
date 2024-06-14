@@ -1,9 +1,13 @@
+"use client";
+
 import Button from "@/app/_components/Button";
 import IconChevronUp from "@/app/_components/icons/IconChevronUp";
 import IconLightBulb from "@/app/_components/icons/IconLightBulb";
-import Link from "next/link";
+import { useFormModalContext } from "../_context/FormModalContext";
 
 export default function TopControlBar() {
+  const { setIsOpen } = useFormModalContext();
+
   return (
     <section className="flex items-center justify-between bg-slate-600 px-6 py-2 md:rounded-10px md:px-3">
       <div className="flex items-center justify-between gap-9">
@@ -19,14 +23,7 @@ export default function TopControlBar() {
         </p>
       </div>
 
-      <Button
-        as={Link}
-        variant="purple"
-        href={{
-          pathname: "/feedback/new",
-          query: { backTo: "/" },
-        }}
-      >
+      <Button variant="purple" onClick={() => setIsOpen(true)}>
         + Add Feedback
       </Button>
     </section>
