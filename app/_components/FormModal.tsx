@@ -16,16 +16,16 @@ export default function FormModal({
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.position = "fixed";
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.position = "";
+      document.body.style.overflow = "";
     }
   }, [isModalOpen]);
 
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0 z-20 overflow-auto bg-slate-50">
+        <div className="fixed inset-0 z-20 overflow-auto overscroll-contain bg-slate-50">
           <SimpleLayout className="mx-auto max-w-[540px]">
             <div className="mb-9 flex h-10 items-center">
               <BackButton onClick={() => setIsModalOpen(false)} />
