@@ -39,7 +39,7 @@ export const RealtimeFeedbackItemProvider = ({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [feedbackItem.id]);
 
   return (
     <RealtimeFeedbackItemContext.Provider value={{ realtimeFeedbackItem }}>
