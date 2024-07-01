@@ -24,14 +24,13 @@ export default async function SingleFeedbackPage({
     notFound();
   }
 
-  if (feedbackItem.authorId !== (await mockLoggedInUser()).id) {
-    notFound();
-  }
+  const user = await mockLoggedInUser();
+  const displayEditButton = feedbackItem.authorId === user.id;
 
   return (
     <SimpleLayout className="mx-auto max-w-[689px] lg:max-w-[730px]">
       <ModalStateProvider>
-        <TopButtonBar />
+        <TopButtonBar displayEditButton={displayEditButton} />
 
         <RealtimeFeedbackItemProvider feedbackItem={feedbackItem}>
           <FormModal
