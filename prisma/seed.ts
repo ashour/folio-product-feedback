@@ -4,10 +4,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.feedback.deleteMany();
-  await prisma.user.deleteMany();
+  await prisma.userProfile.deleteMany();
 
-  await prisma.user.create({
+  await prisma.userProfile.create({
     data: {
+      id: "52d49603-7cc7-4ade-9a8d-83257322aa90",
       firstName: "Elijah",
       lastName: "Moss",
       username: "hexagon.bestagon",
@@ -29,8 +30,9 @@ async function main() {
       },
     },
   });
-  await prisma.user.create({
+  await prisma.userProfile.create({
     data: {
+      id: "c021298d-bb84-4a17-a2c3-ed58990218fa",
       firstName: "Jamie",
       lastName: "Skinner",
       username: "hummingbird1",
@@ -45,8 +47,9 @@ async function main() {
       },
     },
   });
-  await prisma.user.create({
+  await prisma.userProfile.create({
     data: {
+      id: "c4dc1be3-6df6-439b-8ad7-67f30d5e8c26",
       firstName: "Anne",
       lastName: "Valentine",
       username: "annev1990",
@@ -68,15 +71,17 @@ async function main() {
       },
     },
   });
-  await prisma.user.create({
+  await prisma.userProfile.create({
     data: {
+      id: "536bfd32-f0e3-4aad-b0bf-6f846974dacb",
       firstName: "Ryan",
       lastName: "Welles",
       username: "voyager.344",
     },
   });
-  await prisma.user.create({
+  await prisma.userProfile.create({
     data: {
+      id: "66df3fd6-1b7b-4fc2-9b1e-d1618111e7c4",
       firstName: "The",
       lastName: "Big You",
       username: "thebigyou",

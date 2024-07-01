@@ -2,7 +2,7 @@ import prisma from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
-import { mockLoggedInUser } from "../../_lib/auth";
+import { currentUser } from "../../_lib/auth";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const requestData = await req.json();
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ message: "Invalid data" }, { status: 400 });
   }
 
-  const author = await mockLoggedInUser();
+  const author = await currentUser();
 
   try {
     await prisma.feedback.create({

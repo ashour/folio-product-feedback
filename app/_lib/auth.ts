@@ -1,14 +1,14 @@
-import { User } from "@prisma/client";
-import prisma from "./prismaSingleton";
+import { type User } from "@supabase/supabase-js";
+import { createClient } from "./supabase/serverClient";
 
-let _mockLoggedInUser: User | null;
+export async function currentUser(): Promise<User> {
+  const supabase = createClient();
+  const res = await supabase.auth.getUser();
 
-export async function mockLoggedInUser(): Promise<User> {
-  if (!_mockLoggedInUser) {
-    _mockLoggedInUser = await prisma.user.findFirstOrThrow({
-      where: { username: "thebigyou" },
-    });
+  if (!res.error && res.data) {
+    return res.data.user;
   }
 
-  return _mockLoggedInUser;
+  console.error(res.error);
+  throw res.error?.message ?? "An error occurred while fetching user data";
 }

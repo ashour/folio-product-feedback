@@ -3,7 +3,7 @@ import GradientIcon from "@/app/_components/icons/GradientIcon";
 import IconPen from "@/app/_components/icons/IconPen";
 import { ModalStateProvider } from "@/app/_context/ModalContext";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
-import { mockLoggedInUser } from "@/app/_lib/auth";
+import { currentUser } from "@/app/_lib/auth";
 import prisma from "@/app/_lib/prismaSingleton";
 import { notFound } from "next/navigation";
 import EditFeedbackForm from "../_components/EditFeedbackForm";
@@ -24,7 +24,7 @@ export default async function SingleFeedbackPage({
     notFound();
   }
 
-  const user = await mockLoggedInUser();
+  const user = await currentUser();
   const displayEditButton = feedbackItem.authorId === user.id;
 
   return (

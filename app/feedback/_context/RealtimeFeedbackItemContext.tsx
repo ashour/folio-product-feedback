@@ -26,7 +26,7 @@ export const RealtimeFeedbackItemProvider = ({
         {
           event: "UPDATE",
           schema: "public",
-          table: "pfa_feedbacks",
+          table: "feedbacks",
         },
         (payload) => {
           if (payload.new.id === feedbackItem.id) {
