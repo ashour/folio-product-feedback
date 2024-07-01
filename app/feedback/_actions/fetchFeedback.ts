@@ -11,7 +11,7 @@ export async function fetchFeedback(): Promise<Feedback[]> {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Failed to fetch feedback");
   } finally {
     await prisma.$disconnect();
