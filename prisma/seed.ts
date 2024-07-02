@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.SEED_URL,
+    },
+  },
+});
 
 async function main() {
   await prisma.feedback.deleteMany();

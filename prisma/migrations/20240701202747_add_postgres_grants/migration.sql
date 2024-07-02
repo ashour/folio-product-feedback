@@ -1,9 +1,37 @@
-grant usage on schema public to postgres, anon, authenticated, service_role;
+GRANT usage ON schema public TO postgres,
+anon,
+authenticated,
+service_role;
 
-grant all privileges on all tables in schema public to postgres, anon, authenticated, service_role;
-grant all privileges on all functions in schema public to postgres, anon, authenticated, service_role;
-grant all privileges on all sequences in schema public to postgres, anon, authenticated, service_role;
+GRANT ALL privileges ON ALL tables IN schema public TO postgres,
+anon,
+authenticated,
+service_role;
 
-alter default privileges in schema public grant all on tables to postgres, anon, authenticated, service_role;
-alter default privileges in schema public grant all on functions to postgres, anon, authenticated, service_role;
-alter default privileges in schema public grant all on sequences to postgres, anon, authenticated, service_role;
+GRANT ALL privileges ON ALL functions IN schema public TO postgres,
+anon,
+authenticated,
+service_role;
+
+GRANT ALL privileges ON ALL sequences IN schema public TO postgres,
+anon,
+authenticated,
+service_role;
+
+ALTER DEFAULT PRIVILEGES IN schema public
+GRANT ALL ON tables TO postgres,
+anon,
+authenticated,
+service_role;
+
+ALTER DEFAULT PRIVILEGES IN schema public
+GRANT ALL ON functions TO postgres,
+anon,
+authenticated,
+service_role;
+
+ALTER DEFAULT PRIVILEGES IN schema public
+GRANT ALL ON sequences TO postgres,
+anon,
+authenticated,
+service_role;

@@ -1,3 +1,46 @@
+## Config
+
+Create a Supabase project.
+
+Make sure to create a role in the database called rls_user.
+
+```sql
+CREATE USER rls_user
+WITH
+  PASSWORD 'your_password';
+```
+
+Add the database connection string for the rls_user in the .env file.
+
+```env
+DATABASE_URL="postgresql://[rls_user].[your_project_id:ElWzRYrRnVGAkeNH]@[your_supabase_pooler_ip_address]:6543/postgres?pgbouncer=true&connection_limit=1"
+```
+
+### .env file
+
+### Add some mock users
+
+Under the Authentication section of your Supabase project, add a few users for
+testing.
+
+<!-- TODO: script for this -->
+
+### Run migrations
+
+After you migrate the database, copy the SQL in `prisma/post_migration.sql`
+and run them in the SQL Editor of your Supabase project.
+
+### Seed the database
+
+In the `prisma/seed.ts` file, replace all the user ids with ids from the users
+you added in the Authentication section of your Supabase project.
+
+<!-- TODO: Provide a SQL script for this -->
+
+### Enable Realtime
+
+# Next.js README.md
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

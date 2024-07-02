@@ -1,5 +1,5 @@
 import { currentUser } from "@/app/_lib/auth";
-import prisma from "@/app/_lib/prismaSingleton";
+import prismaSingleton from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,6 +8,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const prisma = await prismaSingleton();
+
   const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });
@@ -61,6 +63,8 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const prisma = await prismaSingleton();
+
   const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });

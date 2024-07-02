@@ -1,4 +1,4 @@
-import prisma from "@/app/_lib/prismaSingleton";
+import prismaSingleton from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -13,6 +13,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const author = await currentUser();
+  const prisma = await prismaSingleton();
 
   try {
     await prisma.feedback.create({
