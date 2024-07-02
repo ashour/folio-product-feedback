@@ -1,9 +1,11 @@
 "use server";
 
-import prisma from "@/app/_lib/prismaSingleton";
-import { Feedback } from "@prisma/client";
+import prismaSingleton from "@/app/_lib/prismaSingleton";
+import { type Feedback } from "@prisma/client";
 
 export async function fetchFeedback(): Promise<Feedback[]> {
+  const prisma = await prismaSingleton();
+
   try {
     return await prisma.feedback.findMany({
       orderBy: {
@@ -11,7 +13,7 @@ export async function fetchFeedback(): Promise<Feedback[]> {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error("Failed to fetch feedback");
   } finally {
     await prisma.$disconnect();

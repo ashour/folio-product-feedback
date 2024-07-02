@@ -8,28 +8,28 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model User {
-  id        String     @id @default(uuid())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+model UserProfile {
+  id        String     @id
   firstName String
   lastName  String
-  username  String     @unique
+  username  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   feedbacks Feedback[]
 
-  @@map("pfa_users")
+  @@map("user_profiles")
 }
 
 model Feedback {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id])
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  author    UserProfile @relation(fields: [authorId], references: [id])
   authorId  String
   category  String
-  status    String   @default("Suggestion")
+  status    String      @default("Suggestion")
   title     String
   details   String
 
-  @@map("pfa_feedbacks")
+  @@map("feedbacks")
 }

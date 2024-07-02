@@ -19,7 +19,7 @@ export default async function FeedbackIndex() {
   return (
     <>
       {error && <ErrorAlert>{error}</ErrorAlert>}
-      {!hasFeedbackItems && <EmptyState />}
+      {!error && !hasFeedbackItems && <EmptyState />}
 
       {hasFeedbackItems && (
         <RealtimeFeedbackIndex feedbackItems={feedbackItems!} />

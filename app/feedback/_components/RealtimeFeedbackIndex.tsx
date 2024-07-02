@@ -21,7 +21,7 @@ export default function RealtimeFeedbackIndex({
         {
           event: "*",
           schema: "public",
-          table: "pfa_feedbacks",
+          table: "feedbacks",
         },
         (payload) => {
           setRealtimeFeedbackItems((prevFeedbackItems) => {

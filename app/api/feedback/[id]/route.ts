@@ -1,5 +1,5 @@
-import { mockLoggedInUser } from "@/app/_lib/auth";
-import prisma from "@/app/_lib/prismaSingleton";
+import { currentUser } from "@/app/_lib/auth";
+import prismaSingleton from "@/app/_lib/prismaSingleton";
 import { feedbackSchema } from "@/app/feedback/_validation/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,6 +8,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const prisma = await prismaSingleton();
+
   const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });
@@ -18,7 +20,7 @@ export async function PUT(
     );
   }
 
-  const author = await mockLoggedInUser();
+  const author = await currentUser();
   if (feedback.authorId !== author.id) {
     return NextResponse.json(
       { message: "You are not allowed to update this feedback" },
@@ -61,6 +63,8 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const prisma = await prismaSingleton();
+
   const feedback = await prisma.feedback.findUnique({
     where: { id: params.id as string },
   });
@@ -71,7 +75,7 @@ export async function DELETE(
     );
   }
 
-  const author = await mockLoggedInUser();
+  const author = await currentUser();
   if (feedback.authorId !== author.id) {
     return NextResponse.json(
       { message: "You are not allowed to delete this feedback" },

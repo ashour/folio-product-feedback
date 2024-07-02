@@ -3,8 +3,8 @@ import GradientIcon from "@/app/_components/icons/GradientIcon";
 import IconPen from "@/app/_components/icons/IconPen";
 import { ModalStateProvider } from "@/app/_context/ModalContext";
 import SimpleLayout from "@/app/_layout/SimpleLayout";
-import { mockLoggedInUser } from "@/app/_lib/auth";
-import prisma from "@/app/_lib/prismaSingleton";
+import { currentUser } from "@/app/_lib/auth";
+import prismaSingleton from "@/app/_lib/prismaSingleton";
 import { notFound } from "next/navigation";
 import EditFeedbackForm from "../_components/EditFeedbackForm";
 import RealtimeFeedbackItem from "../_components/RealtimeFeedbackItem";
@@ -16,6 +16,8 @@ export default async function SingleFeedbackPage({
 }: {
   params: { id: string };
 }) {
+  const prisma = await prismaSingleton();
+
   const feedbackItem = await prisma.feedback.findFirst({
     where: { id },
   });
@@ -24,14 +26,13 @@ export default async function SingleFeedbackPage({
     notFound();
   }
 
-  if (feedbackItem.authorId !== (await mockLoggedInUser()).id) {
-    notFound();
-  }
+  const user = await currentUser();
+  const displayEditButton = feedbackItem.authorId === user.id;
 
   return (
     <SimpleLayout className="mx-auto max-w-[689px] lg:max-w-[730px]">
       <ModalStateProvider>
-        <TopButtonBar />
+        <TopButtonBar displayEditButton={displayEditButton} />
 
         <RealtimeFeedbackItemProvider feedbackItem={feedbackItem}>
           <FormModal
