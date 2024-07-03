@@ -1,7 +1,7 @@
 "use client";
 
 import FeedbackItem from "@/feedback/single/FeedbackItem";
-import supabase from "@/supabase/browserClient";
+import supabase from "@/lib/supabase/browserClient";
 import { type Feedback } from "@prisma/client";
 import { useEffect, useState } from "react";
 

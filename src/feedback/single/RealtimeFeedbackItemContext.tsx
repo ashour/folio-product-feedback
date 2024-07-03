@@ -1,6 +1,6 @@
 "use client";
 
-import supabase from "@/supabase/browserClient";
+import supabase from "@/lib/supabase/browserClient";
 import { Feedback } from "@prisma/client";
 import { createContext, useContext, useEffect, useState } from "react";
 
