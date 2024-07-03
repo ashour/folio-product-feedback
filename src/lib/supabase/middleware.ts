@@ -57,10 +57,14 @@ export async function updateSession(request: NextRequest) {
   const userResponse = await supabase.auth.getUser();
 
   if (!userResponse.data.user) {
-    await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: process.env.SUPABASE_TEST_EMAIL!,
       password: process.env.SUPABASE_TEST_PASSWORD!,
     });
+
+    if (error) {
+      throw new Error("Failed to sign in");
+    }
   }
 
   return response;

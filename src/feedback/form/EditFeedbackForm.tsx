@@ -1,9 +1,10 @@
 "use client";
 
+import { deleteFeedback } from "../actions/deleteFeedback";
 import { updateFeedback } from "../actions/updateFeedback";
-import { Category } from "../categories";
+import { type Category } from "../categories";
 import { useRealtimeFeedbackItem } from "../single/RealtimeFeedbackItemContext";
-import { Status } from "../statuses";
+import { type Status } from "../statuses";
 import Form from "./Form";
 
 export default function EditFeedbackForm() {
@@ -15,6 +16,7 @@ export default function EditFeedbackForm() {
 
       <Form
         submitAction={updateFeedback.bind(null, feedbackItem.id)}
+        deleteAction={deleteFeedback.bind(null, feedbackItem.id)}
         toasts={{
           saving: "Saving feedback...",
           saved: "Feedback updated successfully",
@@ -28,7 +30,6 @@ export default function EditFeedbackForm() {
           status: feedbackItem.status as Status,
         }}
         resetAfterSubmit={false}
-        deleteUrl={`/api/feedback/${feedbackItem.id}`}
       />
     </>
   );

@@ -7,14 +7,12 @@ import { feedbackSchema, type FeedbackSchema } from "../schemas";
 
 export async function createFeedback(data: FeedbackSchema): Promise<void> {
   const { success, data: safeData } = feedbackSchema.safeParse(data);
-
   if (!success) {
     throw new Error("Invalid data");
   }
 
-  const author = await currentUser();
   const prisma = await prismaSingleton();
-
+  const author = await currentUser();
   try {
     await prisma.feedback.create({
       data: {

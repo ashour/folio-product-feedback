@@ -23,7 +23,7 @@ type FormProps = {
     error: string;
   };
   submitAction: (data: FeedbackSchema) => Promise<void>;
-  deleteUrl?: string;
+  deleteAction?: () => Promise<void>;
   saveButtonText: string;
   resetAfterSubmit: boolean;
   defaultValues?: FeedbackSchema;
@@ -31,8 +31,8 @@ type FormProps = {
 
 export default function Form({
   toasts,
-  deleteUrl,
   submitAction,
+  deleteAction,
   defaultValues,
   saveButtonText,
   resetAfterSubmit,
@@ -76,18 +76,11 @@ export default function Form({
   const onDelete = async () => {
     toast("Deleting feedback...");
     try {
-      const result = await fetch(deleteUrl!, { method: "DELETE" });
-      if (result.ok) {
-        toast("Feedback deleted; going back home...");
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
-      } else {
-        toast("Error: failed to delete feedback", {
-          autoClose: false,
-          type: "error",
-        });
-      }
+      await deleteAction!();
+      toast("Feedback deleted. Redirecting to home...");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } catch (error) {
       toast("Error: failed to delete feedback", {
         autoClose: false,
@@ -207,7 +200,7 @@ export default function Form({
         >
           Cancel
         </Button>
-        {!deleteUrl ? null : (
+        {!!deleteAction && (
           <Button
             type="button"
             variant="danger"

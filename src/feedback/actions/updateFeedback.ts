@@ -1,5 +1,6 @@
 "use server";
 
+import { currentUser } from "@/auth";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { revalidatePath } from "next/cache";
 import { FeedbackSchema, feedbackSchema } from "../schemas";
@@ -8,6 +9,12 @@ export async function updateFeedback(
   id: string,
   data: FeedbackSchema,
 ): Promise<void> {
+  const user = await currentUser();
+
+  if (user.id !== id) {
+    throw new Error("You are not authorized to update this feedback");
+  }
+
   const { success, data: safeData } = feedbackSchema.safeParse(data);
   if (!success) {
     throw new Error("Invalid data");
