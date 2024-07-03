@@ -1,6 +1,6 @@
 import { currentUser } from "@/auth";
+import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { feedbackSchema } from "@/feedback/schemas";
-import prismaSingleton from "@@/prisma/prismaSingleton";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 

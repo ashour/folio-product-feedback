@@ -1,6 +1,6 @@
 "use server";
 
-import prismaSingleton from "@@/prisma/prismaSingleton";
+import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { type Feedback } from "@prisma/client";
 
 export async function fetchFeedback(): Promise<Feedback[]> {

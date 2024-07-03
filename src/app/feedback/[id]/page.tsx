@@ -1,4 +1,5 @@
 import { currentUser } from "@/auth";
+import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
 import RealtimeFeedbackItem from "@/feedback/single/RealtimeFeedbackItem";
 import { RealtimeFeedbackItemProvider } from "@/feedback/single/RealtimeFeedbackItemContext";
@@ -8,7 +9,6 @@ import SimpleLayout from "@/ui/layout/SimpleLayout";
 import TopButtonBar from "@/ui/layout/TopButtonBar";
 import FormModal from "@/ui/modals/FormModal";
 import { ModalStateProvider } from "@/ui/modals/ModalContext";
-import prismaSingleton from "@@/prisma/prismaSingleton";
 import { notFound } from "next/navigation";
 
 export default async function SingleFeedbackPage({

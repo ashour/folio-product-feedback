@@ -1,6 +1,6 @@
 import { currentUser } from "@/auth";
-import { useSupabaseRowLevelSecurity } from "@@/prisma/useSupabaseRowLevelSecurity";
 import { PrismaClient } from "@prisma/client";
+import { useSupabaseRowLevelSecurity } from "./useSupabaseRowLevelSecurity";
 
 declare const globalThis: {
   prismaGlobal: ReturnType<typeof createPrismaClient>;
