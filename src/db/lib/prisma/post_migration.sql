@@ -12,15 +12,19 @@ ALTER TABLE "public"."user_profiles" enable ROW level security;
 
 ALTER TABLE "public"."_prisma_migrations" enable ROW level security;
 
-CREATE POLICY "feedbacks SELECT to rls_user authenticated" ON "public"."feedbacks" TO rls_user USING (
-  (
-    (auth.jwt () ->> 'role'::text) = 'authenticated'::text
-  )
-);
+CREATE POLICY "feedbacks SELECT to rls_user authenticated" ON "public"."feedbacks" FOR
+SELECT
+  TO rls_user USING (
+    (
+      (auth.jwt () ->> 'role'::text) = 'authenticated'::text
+    )
+  );
 
-CREATE POLICY "feedbacks SELECT to any authenticated" ON "public"."feedbacks" TO authenticated USING (TRUE);
+CREATE POLICY "feedbacks SELECT to any authenticated" ON "public"."feedbacks" FOR
+SELECT
+  TO authenticated USING (TRUE);
 
-CREATE POLICY "feedbacks INSERT to rls_user authenticated" ON "public"."feedbacks" TO rls_user
+CREATE POLICY "feedbacks INSERT to rls_user authenticated" ON "public"."feedbacks" FOR INSERT TO rls_user
 WITH
   CHECK (
     (
@@ -28,14 +32,16 @@ WITH
     )
   );
 
-CREATE POLICY "feedbacks UPDATE to owner" ON "public"."feedbacks" TO rls_user USING (
-  (
+CREATE POLICY "feedbacks UPDATE to owner" ON "public"."feedbacks"
+FOR UPDATE
+  TO rls_user USING (
     (
-      SELECT
-        (auth.uid ())::text AS uid
-    ) = "authorId"
+      (
+        SELECT
+          (auth.uid ())::text AS uid
+      ) = "authorId"
+    )
   )
-)
 WITH
   CHECK (
     (
@@ -46,7 +52,7 @@ WITH
     )
   );
 
-CREATE POLICY "Users can delete their own feedback" ON "public"."feedbacks" TO rls_user USING (
+CREATE POLICY "feedbacks DELETE to owner" ON "public"."feedbacks" FOR DELETE TO rls_user USING (
   (
     (
       SELECT
