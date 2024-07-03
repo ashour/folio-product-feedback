@@ -1,15 +1,15 @@
+"use server";
+
 import { currentUser } from "@/auth";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
-import { feedbackSchema } from "@/feedback/schemas";
 import { revalidatePath } from "next/cache";
-import { NextRequest, NextResponse } from "next/server";
+import { feedbackSchema, type FeedbackSchema } from "../schemas";
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  const requestData = await req.json();
-  const { success, data: safeData } = feedbackSchema.safeParse(requestData);
+export async function createFeedback(data: FeedbackSchema): Promise<void> {
+  const { success, data: safeData } = feedbackSchema.safeParse(data);
 
   if (!success) {
-    return NextResponse.json({ message: "Invalid data" }, { status: 400 });
+    throw new Error("Invalid data");
   }
 
   const author = await currentUser();
@@ -28,11 +28,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     revalidatePath("/");
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Failed to add feedback" },
-      { status: 500 },
-    );
+    throw new Error("Failed to add feedback");
   }
-
-  return NextResponse.json({ status: "success" });
 }

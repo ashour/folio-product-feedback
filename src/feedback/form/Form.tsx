@@ -22,8 +22,7 @@ type FormProps = {
     saved: string;
     error: string;
   };
-  submitUrl: string;
-  submitMethod: "POST" | "PUT";
+  submitAction: (data: FeedbackSchema) => Promise<void>;
   deleteUrl?: string;
   saveButtonText: string;
   resetAfterSubmit: boolean;
@@ -33,8 +32,7 @@ type FormProps = {
 export default function Form({
   toasts,
   deleteUrl,
-  submitUrl,
-  submitMethod,
+  submitAction,
   defaultValues,
   saveButtonText,
   resetAfterSubmit,
@@ -59,21 +57,11 @@ export default function Form({
   const onSubmit: SubmitHandler<FeedbackSchema> = async (data) => {
     toast(toasts.saving);
     try {
-      const result = await fetch(submitUrl, {
-        method: submitMethod,
-        body: JSON.stringify(data),
-      });
-      if (result.ok) {
-        if (resetAfterSubmit) {
-          reset();
-        }
-        toast(toasts.saved);
-      } else {
-        toast(toasts.error, {
-          autoClose: false,
-          type: "error",
-        });
+      await submitAction(data);
+      if (resetAfterSubmit) {
+        reset();
       }
+      toast(toasts.saved);
     } catch (error) {
       toast(toasts.error, {
         autoClose: false,

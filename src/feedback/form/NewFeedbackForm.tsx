@@ -1,10 +1,10 @@
 import Form from "@/feedback/form/Form";
+import { createFeedback } from "../actions/createFeedback";
 
 export default function NewFeedbackForm() {
   return (
     <Form
-      submitUrl="/api/feedback"
-      submitMethod="POST"
+      submitAction={createFeedback}
       toasts={{
         saving: "Adding feedback...",
         saved: "Feedback added successfully",

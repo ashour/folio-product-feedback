@@ -32,7 +32,7 @@ export default async function SingleFeedbackPage({
   return (
     <SimpleLayout className="mx-auto max-w-[689px] lg:max-w-[730px]">
       <ModalStateProvider>
-        <TopButtonBar displayEditButton={displayEditButton} />
+        <TopButtonBar displayEditButton={true} />
 
         <RealtimeFeedbackItemProvider feedbackItem={feedbackItem}>
           <FormModal

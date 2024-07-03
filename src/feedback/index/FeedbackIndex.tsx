@@ -1,6 +1,6 @@
 import ErrorAlert from "@/ui/ErrorAlert";
 import { Feedback } from "@prisma/client";
-import { fetchFeedback } from "../fetchFeedback";
+import { fetchFeedback } from "../actions/fetchFeedback";
 import EmptyState from "./EmptyState";
 import RealtimeFeedbackIndex from "./RealtimeFeedbackIndex";
 

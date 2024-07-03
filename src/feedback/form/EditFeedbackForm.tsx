@@ -1,5 +1,6 @@
 "use client";
 
+import { updateFeedback } from "../actions/updateFeedback";
 import { Category } from "../categories";
 import { useRealtimeFeedbackItem } from "../single/RealtimeFeedbackItemContext";
 import { Status } from "../statuses";
@@ -13,8 +14,7 @@ export default function EditFeedbackForm() {
       <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
       <Form
-        submitUrl={`/api/feedback/${feedbackItem.id}`}
-        submitMethod="PUT"
+        submitAction={updateFeedback.bind(null, feedbackItem.id)}
         toasts={{
           saving: "Saving feedback...",
           saved: "Feedback updated successfully",
