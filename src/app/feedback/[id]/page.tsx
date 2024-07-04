@@ -1,7 +1,6 @@
 import { auth } from "@/auth/authService";
-import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
-import { FeedbackSchema } from "@/feedback/schemas";
+import { feedback } from "@/feedback/services/feedbackService";
 import RealtimeFeedbackItem from "@/feedback/single/RealtimeFeedbackItem";
 import { RealtimeFeedbackItemProvider } from "@/feedback/single/RealtimeFeedbackItemContext";
 import GradientIcon from "@/ui/icons/GradientIcon";
@@ -17,11 +16,7 @@ export default async function SingleFeedbackPage({
 }: {
   params: { id: string };
 }) {
-  const prisma = await prismaSingleton();
-
-  const feedbackItem = (await prisma.feedback.findFirst({
-    where: { id },
-  })) as FeedbackSchema | null;
+  const feedbackItem = await feedback().findById(id);
 
   if (!feedbackItem) {
     notFound();

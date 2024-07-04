@@ -29,3 +29,7 @@ const createPrismaClient = (userId: string) => {
     }),
   );
 };
+
+export type PrismaClientWithRowLevelSecurity = ReturnType<
+  typeof createPrismaClient
+>;

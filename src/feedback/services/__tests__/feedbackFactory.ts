@@ -1,9 +1,12 @@
+import { FeedbackSchema } from "@/feedback/schemas";
 import { faker } from "@faker-js/faker";
 import { Feedback } from "@prisma/client";
 import { categories } from "../../categories";
 import { statuses } from "../../statuses";
 
-export function makeFeedback(): Feedback {
+export function makeFeedback<T extends FeedbackSchema | Feedback>(
+  overrides: Partial<FeedbackSchema> | null = null,
+): T {
   const updatedAt = faker.date.recent();
 
   return {
@@ -15,5 +18,6 @@ export function makeFeedback(): Feedback {
     authorId: faker.string.uuid(),
     category: faker.helpers.arrayElement(categories),
     status: faker.helpers.arrayElement(statuses),
-  };
+    ...overrides,
+  } as T;
 }

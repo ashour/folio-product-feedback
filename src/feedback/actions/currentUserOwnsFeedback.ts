@@ -1,7 +1,7 @@
 import { isAuthenticated } from "@/auth/isAuthenticated";
-import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { z } from "zod";
 import { createServerActionProcedure } from "zsa";
+import { feedback } from "../services/feedbackService";
 
 export const currentUserOwnsFeedback = createServerActionProcedure(
   isAuthenticated,
@@ -12,22 +12,13 @@ export const currentUserOwnsFeedback = createServerActionProcedure(
     }),
   )
   .handler(async ({ input, ctx }) => {
-    const prisma = await prismaSingleton();
-
-    const feedback = await prisma.feedback.findUnique({
-      where: { id: input.feedbackId },
-    });
-
-    if (!feedback) {
-      throw new Error("Feedback not found");
-    }
-
-    if (ctx.user.id !== feedback.authorId) {
-      throw new Error("You are not authorized to update this feedback");
-    }
+    const feedbackItem = await feedback().findAndGuardForOwner(
+      ctx.user.id,
+      input.feedbackId,
+    );
 
     return {
       user: ctx.user,
-      feedbackId: feedback.id,
+      feedbackId: feedbackItem.id,
     };
   });

@@ -9,6 +9,8 @@ export const feedbackSchema = z.object({
   status: z.optional(z.enum(statuses)),
   details: z.string().min(25, "Details must be 25 characters or more"),
   authorId: z.string().optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 export type FeedbackSchema = z.infer<typeof feedbackSchema>;

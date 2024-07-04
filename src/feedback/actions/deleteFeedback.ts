@@ -1,16 +1,14 @@
 "use server";
 
-import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { revalidatePath } from "next/cache";
+import { feedback } from "../services/feedbackService";
 import { currentUserOwnsFeedback } from "./currentUserOwnsFeedback";
 
 export const deleteFeedback = currentUserOwnsFeedback
   .createServerAction()
   .handler(async ({ ctx }) => {
-    const prisma = await prismaSingleton();
-
     try {
-      await prisma.feedback.delete({ where: { id: ctx.feedbackId } });
+      await feedback().delete(ctx.feedbackId!);
 
       revalidatePath("/");
       revalidatePath(`/feedback/${ctx.feedbackId}`);
