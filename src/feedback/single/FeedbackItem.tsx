@@ -3,15 +3,15 @@
 import Pill from "@/ui/Pill";
 import IconChatBubble from "@/ui/icons/IconChatBubble";
 import IconChevronUp from "@/ui/icons/IconChevronUp";
-import { Feedback } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { FeedbackSchema } from "../schemas";
 
 export default function FeedbackItem({
   feedbackItem,
 }: {
-  feedbackItem: Feedback;
+  feedbackItem: FeedbackSchema;
 }) {
   const router = useRouter();
   const pathname = usePathname();

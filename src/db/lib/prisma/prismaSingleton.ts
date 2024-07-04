@@ -1,4 +1,4 @@
-import { currentUser } from "@/auth/currentUser";
+import { auth } from "@/auth/authService";
 import { PrismaClient } from "@prisma/client";
 import { useSupabaseRowLevelSecurity } from "./useSupabaseRowLevelSecurity";
 
@@ -8,7 +8,7 @@ declare const globalThis: {
 
 export default async function prismaSingleton() {
   if (!globalThis.prismaGlobal) {
-    const user = await currentUser();
+    const user = await auth().currentUser();
     globalThis.prismaGlobal = createPrismaClient(user.id);
   }
   return globalThis.prismaGlobal;

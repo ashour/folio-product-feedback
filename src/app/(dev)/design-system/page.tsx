@@ -1,16 +1,16 @@
-import IconChatBubble from "@/app/_components/icons/IconChatBubble";
-import IconCheckmark from "@/app/_components/icons/IconCheckmark";
-import IconChevronLeft from "@/app/_components/icons/IconChevronLeft";
-import IconChevronUp from "@/app/_components/icons/IconChevronUp";
-import IconCross from "@/app/_components/icons/IconCross";
-import IconDetective from "@/app/_components/icons/IconDetective";
-import IconHamburger from "@/app/_components/icons/IconHamburger";
-import IconLightBulb from "@/app/_components/icons/IconLightBulb";
-import IconPen from "@/app/_components/icons/IconPen";
-import IconPlusSign from "@/app/_components/icons/IconPlusSign";
+import Button from "@/ui/Button";
+import IconChatBubble from "@/ui/icons/IconChatBubble";
+import IconCheckmark from "@/ui/icons/IconCheckmark";
+import IconChevronLeft from "@/ui/icons/IconChevronLeft";
+import IconChevronUp from "@/ui/icons/IconChevronUp";
+import IconCross from "@/ui/icons/IconCross";
+import IconDetective from "@/ui/icons/IconDetective";
+import IconHamburger from "@/ui/icons/IconHamburger";
+import IconLightBulb from "@/ui/icons/IconLightBulb";
+import IconPen from "@/ui/icons/IconPen";
+import IconPlusSign from "@/ui/icons/IconPlusSign";
+import NavLayout from "@/ui/layout/NavLayout";
 import Link from "next/link";
-import Button from "../../_components/Button";
-import NavLayout from "../../_layout/NavLayout";
 
 export default function DesignSystem() {
   return (

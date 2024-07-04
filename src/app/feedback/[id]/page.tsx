@@ -1,6 +1,7 @@
-import { currentUser } from "@/auth/currentUser";
+import { auth } from "@/auth/authService";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
+import { FeedbackSchema } from "@/feedback/schemas";
 import RealtimeFeedbackItem from "@/feedback/single/RealtimeFeedbackItem";
 import { RealtimeFeedbackItemProvider } from "@/feedback/single/RealtimeFeedbackItemContext";
 import GradientIcon from "@/ui/icons/GradientIcon";
@@ -18,15 +19,15 @@ export default async function SingleFeedbackPage({
 }) {
   const prisma = await prismaSingleton();
 
-  const feedbackItem = await prisma.feedback.findFirst({
+  const feedbackItem = (await prisma.feedback.findFirst({
     where: { id },
-  });
+  })) as FeedbackSchema | null;
 
   if (!feedbackItem) {
     notFound();
   }
 
-  const user = await currentUser();
+  const user = await auth().currentUser();
   const displayEditButton = feedbackItem.authorId === user.id;
 
   return (

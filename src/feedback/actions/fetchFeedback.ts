@@ -1,8 +1,8 @@
 "use server";
 
-import { authenticated } from "@/auth/authenticated";
+import { isAuthenticated } from "@/auth/isAuthenticated";
 import { feedback } from "../services/feedbackService";
 
-export const fetchFeedback = authenticated
+export const fetchFeedback = isAuthenticated
   .createServerAction()
   .handler(async () => await feedback().all());

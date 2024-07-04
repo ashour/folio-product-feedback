@@ -1,10 +1,10 @@
-import { authenticated } from "@/auth/authenticated";
+import { isAuthenticated } from "@/auth/isAuthenticated";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { z } from "zod";
 import { createServerActionProcedure } from "zsa";
 
 export const currentUserOwnsFeedback = createServerActionProcedure(
-  authenticated,
+  isAuthenticated,
 )
   .input(
     z.object({

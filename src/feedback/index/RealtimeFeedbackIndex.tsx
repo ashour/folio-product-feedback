@@ -2,16 +2,16 @@
 
 import FeedbackItem from "@/feedback/single/FeedbackItem";
 import supabase from "@/lib/supabase/browserClient";
-import { type Feedback } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { FeedbackSchema } from "../schemas";
 
 export default function RealtimeFeedbackIndex({
   feedbackItems,
 }: {
-  feedbackItems: Feedback[];
+  feedbackItems: FeedbackSchema[];
 }) {
   const [realtimeFeedbackItems, setRealtimeFeedbackItems] =
-    useState<Feedback[]>(feedbackItems);
+    useState<FeedbackSchema[]>(feedbackItems);
 
   useEffect(() => {
     const channel = supabase
@@ -29,14 +29,15 @@ export default function RealtimeFeedbackIndex({
 
             switch (payload.eventType) {
               case "INSERT":
-                updatedFeedbackItems.unshift(payload.new as Feedback);
+                updatedFeedbackItems.unshift(payload.new as FeedbackSchema);
                 break;
 
               case "UPDATE":
                 const feedbackIndex = updatedFeedbackItems.findIndex(
                   (feedback) => feedback.id === payload.old.id,
                 );
-                updatedFeedbackItems[feedbackIndex] = payload.new as Feedback;
+                updatedFeedbackItems[feedbackIndex] =
+                  payload.new as FeedbackSchema;
                 break;
 
               case "DELETE":

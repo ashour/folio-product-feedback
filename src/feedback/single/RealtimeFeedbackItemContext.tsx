@@ -1,22 +1,22 @@
 "use client";
 
 import supabase from "@/lib/supabase/browserClient";
-import { Feedback } from "@prisma/client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { FeedbackSchema } from "../schemas";
 
 const RealtimeFeedbackItemContext = createContext<{
-  realtimeFeedbackItem: Feedback | null;
+  realtimeFeedbackItem: FeedbackSchema | null;
 }>({ realtimeFeedbackItem: null });
 
 export const RealtimeFeedbackItemProvider = ({
   feedbackItem,
   children,
 }: {
-  feedbackItem: Feedback;
+  feedbackItem: FeedbackSchema;
   children: React.ReactNode;
 }) => {
   const [realtimeFeedbackItem, setRealtimeFeedbackItem] =
-    useState<Feedback>(feedbackItem);
+    useState<FeedbackSchema>(feedbackItem);
 
   useEffect(() => {
     const channel = supabase
@@ -30,7 +30,7 @@ export const RealtimeFeedbackItemProvider = ({
         },
         (payload) => {
           if (payload.new.id === feedbackItem.id) {
-            setRealtimeFeedbackItem(payload.new as Feedback);
+            setRealtimeFeedbackItem(payload.new as FeedbackSchema);
           }
         },
       )

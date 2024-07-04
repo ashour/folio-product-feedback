@@ -89,7 +89,10 @@ export default function Form({
       return;
     }
 
-    setCookie("__flash__", "Feedback deleted", { maxAge: 5 });
+    setCookie("__flash__", "Feedback deleted", {
+      maxAge: 5,
+      sameSite: "strict",
+    });
     router.push("/");
   };
 

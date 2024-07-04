@@ -16,9 +16,9 @@ export default function EditFeedbackForm() {
 
       <Form
         submitAction={(data) =>
-          updateFeedback({ feedbackId: feedbackItem.id, data })
+          updateFeedback({ feedbackId: feedbackItem.id!, data })
         }
-        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id })}
+        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id! })}
         toasts={{
           saving: "Saving feedback...",
           saved: "Feedback updated successfully",
