@@ -4,10 +4,10 @@ import { FakeFeedbackRepository } from "./FakeFeedbackRepository";
 import { makeFeedback } from "./feedbackFactory";
 
 describe("feedbackService", () => {
-  it("fetches feedback", async () => {
+  it("fetches all feedback", async () => {
     const withEmptyRepo = new FeedbackService(new FakeFeedbackRepository());
 
-    const emptyFeedback = await withEmptyRepo.fetchFeedback();
+    const emptyFeedback = await withEmptyRepo.all();
 
     expect(emptyFeedback).toEqual([]);
 
@@ -18,7 +18,7 @@ describe("feedbackService", () => {
       new FakeFeedbackRepository([feedbackItem0, feedbackItem1]),
     );
 
-    const feedback = await withFeedbackRepo.fetchFeedback();
+    const feedback = await withFeedbackRepo.all();
 
     expect(feedback).toEqual([feedbackItem0, feedbackItem1]);
   });

@@ -1,9 +1,9 @@
+import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { Feedback } from "@prisma/client";
-import prismaSingleton from "../../db/lib/prisma/prismaSingleton";
 import { IFeedbackRepository } from "./IFeedbackRepository";
 
 export class FeedbackRepository implements IFeedbackRepository {
-  async fetchFeedback(): Promise<Feedback[]> {
+  async all(): Promise<Feedback[]> {
     const prisma = await prismaSingleton();
 
     try {

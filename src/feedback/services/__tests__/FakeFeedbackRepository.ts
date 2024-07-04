@@ -8,7 +8,7 @@ export class FakeFeedbackRepository implements IFeedbackRepository {
     this._feedback = initialFeedback;
   }
 
-  fetchFeedback(): Promise<Feedback[]> {
+  all(): Promise<Feedback[]> {
     return Promise.resolve(this._feedback);
   }
 }
