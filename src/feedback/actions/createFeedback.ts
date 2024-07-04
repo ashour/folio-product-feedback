@@ -1,31 +1,28 @@
 "use server";
 
-import { currentUser } from "@/auth";
+import { authenticated } from "@/auth/authenticated";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { revalidatePath } from "next/cache";
-import { feedbackSchema, type FeedbackSchema } from "../schemas";
+import { feedbackSchema } from "../schemas";
 
-export async function createFeedback(data: FeedbackSchema): Promise<void> {
-  const { success, data: safeData } = feedbackSchema.safeParse(data);
-  if (!success) {
-    throw new Error("Invalid data");
-  }
+export const createFeedback = authenticated
+  .createServerAction()
+  .input(feedbackSchema)
+  .handler(async ({ input, ctx }) => {
+    const prisma = await prismaSingleton();
+    try {
+      await prisma.feedback.create({
+        data: {
+          title: input.title,
+          category: input.category,
+          details: input.details,
+          authorId: ctx.user.id,
+        },
+      });
 
-  const prisma = await prismaSingleton();
-  const author = await currentUser();
-  try {
-    await prisma.feedback.create({
-      data: {
-        title: safeData.title,
-        category: safeData.category,
-        details: safeData.details,
-        authorId: author.id,
-      },
-    });
-
-    revalidatePath("/");
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to add feedback");
-  }
-}
+      revalidatePath("/");
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to add feedback");
+    }
+  });

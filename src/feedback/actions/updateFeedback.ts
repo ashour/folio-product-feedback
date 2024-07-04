@@ -1,42 +1,33 @@
 "use server";
 
-import { currentUser } from "@/auth";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import { revalidatePath } from "next/cache";
-import { FeedbackSchema, feedbackSchema } from "../schemas";
+import { z } from "zod";
+import { feedbackSchema } from "../schemas";
+import { currentUserOwnsFeedback } from "./currentUserOwnsFeedback";
 
-export async function updateFeedback(
-  id: string,
-  data: FeedbackSchema,
-): Promise<void> {
-  const user = await currentUser();
+export const updateFeedback = currentUserOwnsFeedback
+  .createServerAction()
+  .input(z.object({ data: feedbackSchema }))
+  .handler(async ({ input, ctx }) => {
+    const prisma = await prismaSingleton();
+    const { data } = input;
+    try {
+      await prisma.feedback.update({
+        where: { id: ctx.feedbackId },
+        data: {
+          title: data.title,
+          category: data.category,
+          details: data.details,
+          status: data.status,
+        },
+      });
 
-  if (user.id !== id) {
-    throw new Error("You are not authorized to update this feedback");
-  }
-
-  const { success, data: safeData } = feedbackSchema.safeParse(data);
-  if (!success) {
-    throw new Error("Invalid data");
-  }
-
-  const prisma = await prismaSingleton();
-  try {
-    await prisma.feedback.update({
-      where: { id },
-      data: {
-        title: safeData.title,
-        category: safeData.category,
-        details: safeData.details,
-        status: safeData.status,
-      },
-    });
-
-    revalidatePath("/");
-    revalidatePath(`/feedback/${id}`);
-    revalidatePath(`/feedback/${id}/edit`);
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to update feedback");
-  }
-}
+      revalidatePath("/");
+      revalidatePath(`/feedback/${ctx.feedbackId}`);
+      revalidatePath(`/feedback/${ctx.feedbackId}/edit`);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to update feedback");
+    }
+  });

@@ -9,6 +9,7 @@ import { useModalContext } from "@/ui/modals/ModalContext";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,8 +23,8 @@ type FormProps = {
     saved: string;
     error: string;
   };
-  submitAction: (data: FeedbackSchema) => Promise<void>;
-  deleteAction?: () => Promise<void>;
+  submitAction: (data: FeedbackSchema) => Promise<any>;
+  deleteAction?: () => Promise<any>;
   saveButtonText: string;
   resetAfterSubmit: boolean;
   defaultValues?: FeedbackSchema;
@@ -56,38 +57,40 @@ export default function Form({
 
   const onSubmit: SubmitHandler<FeedbackSchema> = async (data) => {
     toast(toasts.saving);
-    try {
-      await submitAction(data);
-      if (resetAfterSubmit) {
-        reset();
-      }
-      toast(toasts.saved);
-    } catch (error) {
+    const [, error] = await submitAction(data);
+
+    if (error) {
       toast(toasts.error, {
         autoClose: false,
         type: "error",
       });
       console.error(error);
+      return;
     }
+
+    if (resetAfterSubmit) {
+      reset();
+    }
+    toast(toasts.saved);
   };
 
   const router = useRouter();
 
   const onDelete = async () => {
     toast("Deleting feedback...");
-    try {
-      await deleteAction!();
-      toast("Feedback deleted. Redirecting to home...");
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
-    } catch (error) {
+    const [, error] = await deleteAction!();
+
+    if (error) {
       toast("Error: failed to delete feedback", {
         autoClose: false,
         type: "error",
       });
       console.error(error);
+      return;
     }
+
+    setCookie("__flash__", "Feedback deleted", { maxAge: 5 });
+    router.push("/");
   };
 
   return (

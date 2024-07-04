@@ -15,8 +15,10 @@ export default function EditFeedbackForm() {
       <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
       <Form
-        submitAction={updateFeedback.bind(null, feedbackItem.id)}
-        deleteAction={deleteFeedback.bind(null, feedbackItem.id)}
+        submitAction={(data) =>
+          updateFeedback({ feedbackId: feedbackItem.id, data })
+        }
+        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id })}
         toasts={{
           saving: "Saving feedback...",
           saved: "Feedback updated successfully",

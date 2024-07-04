@@ -1,4 +1,4 @@
-import { currentUser } from "@/auth";
+import { currentUser } from "@/auth/currentUser";
 import { PrismaClient } from "@prisma/client";
 import { useSupabaseRowLevelSecurity } from "./useSupabaseRowLevelSecurity";
 

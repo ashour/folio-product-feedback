@@ -1,4 +1,4 @@
-import { currentUser } from "@/auth";
+import { currentUser } from "@/auth/currentUser";
 import prismaSingleton from "@/db/lib/prisma/prismaSingleton";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
 import RealtimeFeedbackItem from "@/feedback/single/RealtimeFeedbackItem";
@@ -32,7 +32,7 @@ export default async function SingleFeedbackPage({
   return (
     <SimpleLayout className="mx-auto max-w-[689px] lg:max-w-[730px]">
       <ModalStateProvider>
-        <TopButtonBar displayEditButton={true} />
+        <TopButtonBar displayEditButton={displayEditButton} />
 
         <RealtimeFeedbackItemProvider feedbackItem={feedbackItem}>
           <FormModal

@@ -8,7 +8,7 @@ import FormModal from "@/ui/modals/FormModal";
 import { ModalStateProvider } from "@/ui/modals/ModalContext";
 import { Suspense } from "react";
 
-export default async function Home() {
+export default function Home() {
   return (
     <NavLayout>
       <ModalStateProvider>
