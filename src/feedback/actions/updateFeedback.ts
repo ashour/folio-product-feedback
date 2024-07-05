@@ -11,7 +11,7 @@ export const updateFeedback = currentUserOwnsFeedback
   .input(z.object({ data: feedbackSchema }))
   .handler(async ({ input, ctx }) => {
     try {
-      await feedback().update(ctx.feedbackId, input.data);
+      await feedback().update(ctx.feedbackId!, input.data);
 
       revalidatePath("/");
       revalidatePath(`/feedback/${ctx.feedbackId}`);

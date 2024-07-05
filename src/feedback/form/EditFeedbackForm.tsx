@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/ui/Button";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { deleteFeedback } from "../actions/deleteFeedback";
 import { updateFeedback } from "../actions/updateFeedback";
@@ -10,6 +12,24 @@ import Form from "./Form";
 
 export default function EditFeedbackForm() {
   const feedbackItem = useRealtimeFeedbackItem();
+  const router = useRouter();
+
+  const onDelete = async () => {
+    toast("Deleting feedback...");
+    const [, error] = await deleteFeedback({ feedbackId: feedbackItem.id! });
+
+    if (error) {
+      toast("Error: failed to delete feedback", {
+        autoClose: false,
+        type: "error",
+      });
+      console.error(error);
+      return;
+    }
+
+    toast("Feedback deleted");
+    router.push("/");
+  };
 
   return (
     <>
@@ -31,7 +51,7 @@ export default function EditFeedbackForm() {
           });
 
           if (error) {
-            toast("Error: failed to update feedback", {
+            toast("Error: failed to saved feedback", {
               autoClose: false,
               type: "error",
             });
@@ -39,9 +59,20 @@ export default function EditFeedbackForm() {
             return;
           }
 
-          toast("Feedback updated successfully");
+          toast("Feedback saved");
         }}
-        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id! })}
+        extraButtons={
+          <Button
+            type="button"
+            variant="danger"
+            onClick={() =>
+              confirm("Are you sure you want to delete this?") && onDelete()
+            }
+            className="md:me-auto"
+          >
+            Delete
+          </Button>
+        }
       />
     </>
   );

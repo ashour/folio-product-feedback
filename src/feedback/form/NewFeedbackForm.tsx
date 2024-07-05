@@ -27,7 +27,7 @@ export default function NewFeedbackForm() {
         }
 
         reset();
-        toast("Feedback added successfully");
+        toast("Feedback added");
       }}
     />
   );

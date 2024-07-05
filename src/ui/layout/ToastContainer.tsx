@@ -2,15 +2,17 @@
 
 import IconCross from "@/ui/icons/IconCross";
 import clsx from "clsx";
-import { ToastContainer as RTToastContainer } from "react-toastify";
+import { ToastContainer as RTToastContainer, Slide } from "react-toastify";
 
 export default function ToastContainer() {
   return (
     <RTToastContainer
-      icon={false}
+      stacked
       closeOnClick
-      stacked={true}
+      icon={false}
       hideProgressBar
+      autoClose={3000}
+      transition={Slide}
       position="bottom-center"
       toastClassName={(ctx) =>
         clsx(

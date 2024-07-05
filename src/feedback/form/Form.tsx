@@ -8,29 +8,26 @@ import { useModalContext } from "@/ui/modals/ModalContext";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
 import { Controller, UseFormReset, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { categories } from "../categories";
 import { FeedbackSchema, feedbackSchema } from "../schemas";
 import { statuses } from "../statuses";
 
 type FormProps = {
   defaultValues?: FeedbackSchema;
+  saveButtonText: string;
   onSubmit: (
     data: FeedbackSchema,
     reset: UseFormReset<FeedbackSchema>,
   ) => Promise<any>;
-  deleteAction?: () => Promise<any>;
-  saveButtonText: string;
+  extraButtons?: React.ReactNode;
 };
 
 export default function Form({
   defaultValues,
-  onSubmit,
-  deleteAction,
   saveButtonText,
+  onSubmit,
+  extraButtons,
 }: FormProps) {
   const { setIsModalOpen } = useModalContext();
 
@@ -48,28 +45,6 @@ export default function Form({
 
   const selectedCategory = watch("category");
   const selectedStatus = watch("status");
-
-  const router = useRouter();
-
-  const onDelete = async () => {
-    toast("Deleting feedback...");
-    const [, error] = await deleteAction!();
-
-    if (error) {
-      toast("Error: failed to delete feedback", {
-        autoClose: false,
-        type: "error",
-      });
-      console.error(error);
-      return;
-    }
-
-    setCookie("__flash__", "Feedback deleted", {
-      maxAge: 5,
-      sameSite: "strict",
-    });
-    router.push("/");
-  };
 
   return (
     <form onSubmit={handleSubmit(async (data) => await onSubmit(data, reset))}>
@@ -156,18 +131,7 @@ export default function Form({
         >
           Cancel
         </Button>
-        {!!deleteAction && (
-          <Button
-            type="button"
-            variant="danger"
-            onClick={() =>
-              confirm("Are you sure you want to delete this?") && onDelete()
-            }
-            className="md:me-auto"
-          >
-            Delete
-          </Button>
-        )}
+        {extraButtons}
       </div>
     </form>
   );
