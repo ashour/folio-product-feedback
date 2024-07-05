@@ -13,7 +13,7 @@ WITH
 Add the database connection string for the rls_user in the .env file.
 
 ```env
-DATABASE_URL="postgresql://[rls_user].[your_project_id:ElWzRYrRnVGAkeNH]@[your_supabase_pooler_ip_address]:6543/postgres?pgbouncer=true&connection_limit=1"
+DATABASE_URL="postgres://your-supabase-postgres-row-level-security-url?pgbouncer=true&connection_limit=1"
 ```
 
 ### .env file
@@ -32,7 +32,7 @@ and run them in the SQL Editor of your Supabase project.
 
 ### Seed the database
 
-In the `prisma/seed.ts` file, replace all the user ids with ids from the users
+In the `src/db/lib/prisma/seed.ts` file, replace all the user ids with ids from the users
 you added in the Authentication section of your Supabase project.
 
 <!-- TODO: Provide a SQL script for this -->
