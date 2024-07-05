@@ -2,12 +2,11 @@ import { FeedbackSchema } from "@/feedback/schemas";
 import { Feedback } from "@prisma/client";
 import { describe, expect, it } from "vitest";
 import { FeedbackService } from "../feedbackService";
-import { FakeFeedbackRepository } from "./FakeFeedbackRepository";
-import { makeFeedback } from "./feedbackFactory";
+import { makeFeedback, makeFeedbackRespository } from "./feedbackFactory";
 
 describe("feedbackService", () => {
   it("fetches all feedback", async () => {
-    const withEmptyRepo = new FeedbackService(new FakeFeedbackRepository());
+    const withEmptyRepo = new FeedbackService(makeFeedbackRespository());
 
     const emptyFeedback = await withEmptyRepo.all();
 
@@ -17,7 +16,7 @@ describe("feedbackService", () => {
     const feedbackItem1 = makeFeedback<Feedback>();
 
     const withFeedbackRepo = new FeedbackService(
-      new FakeFeedbackRepository([feedbackItem0, feedbackItem1]),
+      makeFeedbackRespository(feedbackItem0, feedbackItem1),
     );
 
     const feedback = await withFeedbackRepo.all();
@@ -28,11 +27,9 @@ describe("feedbackService", () => {
   it("fetches a single feedback by id", async () => {
     const feedbackItem0 = makeFeedback<FeedbackSchema>({ id: "1" });
     const feedbackItem1 = makeFeedback<FeedbackSchema>({ id: "2" });
-    const feedbackRepo = new FakeFeedbackRepository([
-      feedbackItem0 as Feedback,
-      feedbackItem1 as Feedback,
-    ]);
-    const feedbackService = new FeedbackService(feedbackRepo);
+    const feedbackService = new FeedbackService(
+      makeFeedbackRespository(feedbackItem0, feedbackItem1),
+    );
 
     const feedback = await feedbackService.findById("1");
 
@@ -44,8 +41,9 @@ describe("feedbackService", () => {
       id: "1",
       authorId: "1",
     });
-    const feedbackRepo = new FakeFeedbackRepository([feedbackItem as Feedback]);
-    const feedbackService = new FeedbackService(feedbackRepo);
+    const feedbackService = new FeedbackService(
+      makeFeedbackRespository(feedbackItem),
+    );
 
     const authorizedFeedbackItem = await feedbackService.findAndGuardForOwner(
       "1",
@@ -64,24 +62,24 @@ describe("feedbackService", () => {
   });
 
   it("creates feedback", async () => {
-    const feedbackRepo = new FakeFeedbackRepository();
-    const feedbackService = new FeedbackService(feedbackRepo);
+    const feedbackService = new FeedbackService(makeFeedbackRespository());
 
     const feedback0 = makeFeedback<FeedbackSchema>();
     await feedbackService.create(feedback0);
 
-    expect(await feedbackRepo.all()).toEqual([feedback0]);
+    expect(await feedbackService.all()).toEqual([feedback0]);
 
     const feedback1 = makeFeedback<FeedbackSchema>();
     await feedbackService.create(feedback1);
 
-    expect(await feedbackRepo.all()).toEqual([feedback0, feedback1]);
+    expect(await feedbackService.all()).toEqual([feedback0, feedback1]);
   });
 
   it("updates feedback", async () => {
     const feedbackItem = makeFeedback<FeedbackSchema>({ id: "1" });
-    const feedbackRepo = new FakeFeedbackRepository([feedbackItem as Feedback]);
-    const feedbackService = new FeedbackService(feedbackRepo);
+    const feedbackService = new FeedbackService(
+      makeFeedbackRespository(feedbackItem),
+    );
 
     const updatedFeedback: FeedbackSchema = {
       ...feedbackItem,
@@ -92,20 +90,22 @@ describe("feedbackService", () => {
 
     await feedbackService.update("1", updatedFeedback);
 
-    expect(await feedbackRepo.all()).toEqual([updatedFeedback]);
+    expect(await feedbackService.all()).toEqual([updatedFeedback]);
   });
 
   it("deletes feedback", async () => {
     const feedbackItem0 = { ...makeFeedback<FeedbackSchema>(), id: "1" };
     const feedbackItem1 = { ...makeFeedback<FeedbackSchema>(), id: "2" };
-    const feedbackRepo = new FakeFeedbackRepository([
-      feedbackItem0 as Feedback,
-      feedbackItem1 as Feedback,
-    ]);
-    const feedbackService = new FeedbackService(feedbackRepo);
+    const feedbackService = new FeedbackService(
+      makeFeedbackRespository(feedbackItem0, feedbackItem1),
+    );
 
     await feedbackService.delete("1");
 
-    expect(await feedbackRepo.all()).toEqual([feedbackItem1]);
+    expect(await feedbackService.all()).toEqual([feedbackItem1]);
+
+    await feedbackService.delete("2");
+
+    expect(await feedbackService.all()).toEqual([]);
   });
 });

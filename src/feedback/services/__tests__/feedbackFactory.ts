@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker";
 import { Feedback } from "@prisma/client";
 import { categories } from "../../categories";
 import { statuses } from "../../statuses";
+import { IFeedbackRepository } from "../IFeedbackRepository";
+import { FakeFeedbackRepository } from "./FakeFeedbackRepository";
 
 export function makeFeedback<T extends FeedbackSchema | Feedback>(
   overrides: Partial<FeedbackSchema> | null = null,
@@ -20,4 +22,11 @@ export function makeFeedback<T extends FeedbackSchema | Feedback>(
     status: faker.helpers.arrayElement(statuses),
     ...overrides,
   } as T;
+}
+
+export function makeFeedbackRespository(
+  ...feedbackItems: FeedbackSchema[] | Feedback[]
+): IFeedbackRepository {
+  const feedbackItemsAsFeedback = feedbackItems.map((item) => item as Feedback);
+  return new FakeFeedbackRepository(feedbackItemsAsFeedback);
 }
