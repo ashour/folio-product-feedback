@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "react-toastify";
 import { deleteFeedback } from "../actions/deleteFeedback";
 import { updateFeedback } from "../actions/updateFeedback";
 import { type Category } from "../categories";
@@ -15,15 +16,6 @@ export default function EditFeedbackForm() {
       <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
       <Form
-        submitAction={(data) =>
-          updateFeedback({ feedbackId: feedbackItem.id!, data })
-        }
-        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id! })}
-        toasts={{
-          saving: "Saving feedback...",
-          saved: "Feedback updated successfully",
-          error: "Error: failed to update feedback",
-        }}
         saveButtonText="Save Changes"
         defaultValues={{
           title: feedbackItem.title,
@@ -31,7 +23,25 @@ export default function EditFeedbackForm() {
           details: feedbackItem.details,
           status: feedbackItem.status as Status,
         }}
-        resetAfterSubmit={false}
+        onSubmit={async (data) => {
+          toast("Saving feedback...");
+          const [, error] = await updateFeedback({
+            feedbackId: feedbackItem.id!,
+            data,
+          });
+
+          if (error) {
+            toast("Error: failed to update feedback", {
+              autoClose: false,
+              type: "error",
+            });
+            console.error(error);
+            return;
+          }
+
+          toast("Feedback updated successfully");
+        }}
+        deleteAction={() => deleteFeedback({ feedbackId: feedbackItem.id! })}
       />
     </>
   );

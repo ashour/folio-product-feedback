@@ -10,32 +10,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, UseFormReset, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { categories } from "../categories";
 import { FeedbackSchema, feedbackSchema } from "../schemas";
 import { statuses } from "../statuses";
 
 type FormProps = {
-  toasts: {
-    saving: string;
-    saved: string;
-    error: string;
-  };
-  submitAction: (data: FeedbackSchema) => Promise<any>;
+  defaultValues?: FeedbackSchema;
+  onSubmit: (
+    data: FeedbackSchema,
+    reset: UseFormReset<FeedbackSchema>,
+  ) => Promise<any>;
   deleteAction?: () => Promise<any>;
   saveButtonText: string;
-  resetAfterSubmit: boolean;
-  defaultValues?: FeedbackSchema;
 };
 
 export default function Form({
-  toasts,
-  submitAction,
-  deleteAction,
   defaultValues,
+  onSubmit,
+  deleteAction,
   saveButtonText,
-  resetAfterSubmit,
 }: FormProps) {
   const { setIsModalOpen } = useModalContext();
 
@@ -53,25 +48,6 @@ export default function Form({
 
   const selectedCategory = watch("category");
   const selectedStatus = watch("status");
-
-  const onSubmit: SubmitHandler<FeedbackSchema> = async (data) => {
-    toast(toasts.saving);
-    const [, error] = await submitAction(data);
-
-    if (error) {
-      toast(toasts.error, {
-        autoClose: false,
-        type: "error",
-      });
-      console.error(error);
-      return;
-    }
-
-    if (resetAfterSubmit) {
-      reset();
-    }
-    toast(toasts.saved);
-  };
 
   const router = useRouter();
 
@@ -96,7 +72,7 @@ export default function Form({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(async (data) => await onSubmit(data, reset))}>
       <Label htmlFor="title" className="mb-1">
         Feedback Title
       </Label>
