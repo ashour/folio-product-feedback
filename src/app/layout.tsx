@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 
 import "@/app/globals.css";
+import ToastContainer from "@/ui/layout/ToastContainer";
 
 const jost = Jost({ subsets: ["latin"], variable: "--font-jost" });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-slate-50 text-slate-600 ${jost.className}`}>
+        <ToastContainer />
         {children}
       </body>
     </html>

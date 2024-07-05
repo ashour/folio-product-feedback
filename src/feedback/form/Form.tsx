@@ -4,7 +4,6 @@ import Button from "@/ui/Button";
 import HelpText from "@/ui/HelpText";
 import Label from "@/ui/Label";
 import PfaListbox from "@/ui/PfaListbox";
-import IconCross from "@/ui/icons/IconCross";
 import { useModalContext } from "@/ui/modals/ModalContext";
 import { Field, Label as HuiLabel } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +11,7 @@ import clsx from "clsx";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { categories } from "../categories";
 import { FeedbackSchema, feedbackSchema } from "../schemas";
 import { statuses } from "../statuses";
@@ -98,31 +97,6 @@ export default function Form({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ToastContainer
-        icon={false}
-        closeOnClick
-        stacked={true}
-        hideProgressBar
-        position="bottom-center"
-        toastClassName={(ctx) =>
-          clsx(
-            "py-4 px-8 md:p-4 rounded-10px shadow-md text-white cursor-pointer flex justify-between items-center",
-            {
-              "bg-sky": !ctx || !ctx.type || ctx.type === "default",
-              "bg-danger": ctx?.type === "error",
-            },
-          )
-        }
-        bodyClassName={() =>
-          "text-white stroke-white flex-1 flex justify-between"
-        }
-        closeButton={() => (
-          <div className="flex h-6 w-6 items-center justify-center">
-            <IconCross />
-          </div>
-        )}
-      />
-
       <Label htmlFor="title" className="mb-1">
         Feedback Title
       </Label>
