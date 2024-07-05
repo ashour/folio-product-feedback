@@ -116,11 +116,11 @@ export default function Form({
         bodyClassName={() =>
           "text-white stroke-white flex-1 flex justify-between"
         }
-        closeButton={
+        closeButton={() => (
           <div className="flex h-6 w-6 items-center justify-center">
             <IconCross />
           </div>
-        }
+        )}
       />
 
       <Label htmlFor="title" className="mb-1">
