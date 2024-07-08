@@ -1,8 +1,7 @@
 import { auth } from "@/auth/authService";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
 import { feedback } from "@/feedback/services/feedbackService";
-import RealtimeFeedbackItem from "@/feedback/single/RealtimeFeedbackItem";
-import { RealtimeFeedbackItemProvider } from "@/feedback/single/RealtimeFeedbackItemContext";
+import FeedbackItem from "@/feedback/single/FeedbackItem";
 import GradientIcon from "@/ui/icons/GradientIcon";
 import IconPen from "@/ui/icons/IconPen";
 import SimpleLayout from "@/ui/layout/SimpleLayout";
@@ -30,22 +29,20 @@ export default async function SingleFeedbackPage({
       <ModalStateProvider>
         <TopButtonBar displayEditButton={displayEditButton} />
 
-        <RealtimeFeedbackItemProvider feedbackItem={feedbackItem}>
-          <FormModal
-            form={
-              <>
-                <GradientIcon className="absolute -top-5">
-                  <IconPen className="relative bottom-[0.5px] start-[1px]" />
-                </GradientIcon>
-                <EditFeedbackForm />
-              </>
-            }
-          >
-            <main>
-              <RealtimeFeedbackItem />
-            </main>
-          </FormModal>
-        </RealtimeFeedbackItemProvider>
+        <FormModal
+          form={
+            <>
+              <GradientIcon className="absolute -top-5">
+                <IconPen className="relative bottom-[0.5px] start-[1px]" />
+              </GradientIcon>
+              <EditFeedbackForm feedbackItem={feedbackItem} />
+            </>
+          }
+        >
+          <main>
+            <FeedbackItem feedbackItem={feedbackItem} />
+          </main>
+        </FormModal>
       </ModalStateProvider>
     </SimpleLayout>
   );
