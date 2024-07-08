@@ -6,12 +6,15 @@ import { toast } from "react-toastify";
 import { deleteFeedback } from "../actions/deleteFeedback";
 import { updateFeedback } from "../actions/updateFeedback";
 import { type Category } from "../categories";
-import { useRealtimeFeedbackItem } from "../single/RealtimeFeedbackItemContext";
+import { FeedbackSchema } from "../schemas";
 import { type Status } from "../statuses";
 import Form from "./Form";
 
-export default function EditFeedbackForm() {
-  const feedbackItem = useRealtimeFeedbackItem();
+export default function EditFeedbackForm({
+  feedbackItem,
+}: {
+  feedbackItem: FeedbackSchema;
+}) {
   const router = useRouter();
 
   const onDelete = async () => {
