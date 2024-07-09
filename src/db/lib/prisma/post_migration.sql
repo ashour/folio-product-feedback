@@ -20,10 +20,6 @@ SELECT
     )
   );
 
-CREATE POLICY "feedbacks SELECT to any authenticated" ON "public"."feedbacks" FOR
-SELECT
-  TO authenticated USING (TRUE);
-
 CREATE POLICY "feedbacks INSERT to rls_user authenticated" ON "public"."feedbacks" FOR INSERT TO rls_user
 WITH
   CHECK (
