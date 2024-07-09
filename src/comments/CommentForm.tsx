@@ -1,6 +1,6 @@
 import Button from "@/ui/Button";
 
-export default function Form() {
+export default function CommentForm() {
   return (
     <form className="rounded-10px bg-white p-6">
       <h3 className="mb-6 text-h3">Add Comment</h3>

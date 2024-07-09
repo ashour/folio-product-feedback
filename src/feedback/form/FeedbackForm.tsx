@@ -23,7 +23,7 @@ type FormProps = {
   extraButtons?: React.ReactNode;
 };
 
-export default function Form({
+export default function FeedbackForm({
   defaultValues,
   saveButtonText,
   onSubmit,

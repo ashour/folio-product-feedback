@@ -8,7 +8,7 @@ import { updateFeedback } from "../actions/updateFeedback";
 import { type Category } from "../categories";
 import { FeedbackSchema } from "../schemas";
 import { type Status } from "../statuses";
-import Form from "./Form";
+import FeedbackForm from "./FeedbackForm";
 
 export default function EditFeedbackForm({
   feedbackItem,
@@ -38,7 +38,7 @@ export default function EditFeedbackForm({
     <>
       <h1 className="mb-6 text-h3 ">Editing `{feedbackItem.title}`</h1>
 
-      <Form
+      <FeedbackForm
         saveButtonText="Save Changes"
         defaultValues={{
           title: feedbackItem.title,

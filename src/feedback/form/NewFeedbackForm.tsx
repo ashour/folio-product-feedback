@@ -1,12 +1,12 @@
 "use client";
 
-import Form from "@/feedback/form/Form";
+import FeedbackForm from "@/feedback/form/Form";
 import { toast } from "react-toastify";
 import { createFeedback } from "../actions/createFeedback";
 
 export default function NewFeedbackForm() {
   return (
-    <Form
+    <FeedbackForm
       defaultValues={{
         title: "",
         category: "Feature",
