@@ -11,6 +11,7 @@ const config: Config = {
       slate: {
         50: "#F7F8FD",
         100: "#F2F4FF",
+        300: "#8C92B3",
         500: "#647196",
         600: "#3A4374",
         hover: "#656EA3",
@@ -52,6 +53,7 @@ const config: Config = {
           fontWeight: "500",
         },
       ],
+      "body-4": ["0.8125rem", "1.4615"],
       h1: [
         "1.5rem",
         {

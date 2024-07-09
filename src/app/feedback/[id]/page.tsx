@@ -1,4 +1,5 @@
 import { auth } from "@/auth/authService";
+import Form from "@/comments/Form";
 import EditFeedbackForm from "@/feedback/form/EditFeedbackForm";
 import { feedback } from "@/feedback/services/feedbackService";
 import FeedbackItem from "@/feedback/single/FeedbackItem";
@@ -39,8 +40,9 @@ export default async function SingleFeedbackPage({
             </>
           }
         >
-          <main>
+          <main className="flex flex-col gap-6">
             <FeedbackItem feedbackItem={feedbackItem} />
+            <Form />
           </main>
         </FormModal>
       </ModalStateProvider>
