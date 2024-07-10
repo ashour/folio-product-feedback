@@ -2,7 +2,7 @@
 
 import { isAuthenticated } from "@/auth/isAuthenticated";
 import { revalidatePath } from "next/cache";
-import { feedbackSchema } from "../schemas";
+import { feedbackSchema } from "../feedback-schemas";
 import { feedback } from "../services/feedbackService";
 
 export const createFeedback = isAuthenticated

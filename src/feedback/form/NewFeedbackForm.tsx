@@ -1,6 +1,6 @@
 "use client";
 
-import FeedbackForm from "@/feedback/form/Form";
+import FeedbackForm from "@/feedback/form/FeedbackForm";
 import { toast } from "react-toastify";
 import { createFeedback } from "../actions/createFeedback";
 

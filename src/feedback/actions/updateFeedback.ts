@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { feedbackSchema } from "../schemas";
+import { feedbackSchema } from "../feedback-schemas";
 import { feedback } from "../services/feedbackService";
 import { currentUserOwnsFeedback } from "./currentUserOwnsFeedback";
 

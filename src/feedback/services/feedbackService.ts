@@ -1,5 +1,5 @@
 import { Feedback } from "@prisma/client";
-import { FeedbackSchema } from "../schemas";
+import { FeedbackSchema } from "../feedback-schemas";
 import { IFeedbackRepository } from "./IFeedbackRepository";
 import { FeedbackRepository } from "./feedbackRepository";
 

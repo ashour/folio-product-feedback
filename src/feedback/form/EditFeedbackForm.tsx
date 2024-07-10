@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { deleteFeedback } from "../actions/deleteFeedback";
 import { updateFeedback } from "../actions/updateFeedback";
 import { type Category } from "../categories";
-import { FeedbackSchema } from "../schemas";
+import { FeedbackSchema } from "../feedback-schemas";
 import { type Status } from "../statuses";
 import FeedbackForm from "./FeedbackForm";
 

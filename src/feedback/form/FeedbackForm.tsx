@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/ui/Button";
+import FormErrorMessage from "@/ui/FormErrorMessage";
 import HelpText from "@/ui/HelpText";
 import Label from "@/ui/Label";
 import PfaListbox from "@/ui/PfaListbox";
@@ -10,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import { Controller, UseFormReset, useForm } from "react-hook-form";
 import { categories } from "../categories";
-import { FeedbackSchema, feedbackSchema } from "../schemas";
+import { FeedbackSchema, feedbackSchema } from "../feedback-schemas";
 import { statuses } from "../statuses";
 
 type FormProps = {
@@ -57,9 +58,7 @@ export default function FeedbackForm({
         id="title"
         className={clsx("form-input", errors.title && "form-input--error")}
       />
-      {errors.title && (
-        <p className="mt-1 text-body-2 text-danger">{errors.title.message}</p>
-      )}
+      <FormErrorMessage fieldError={errors.title} />
 
       <Field className="mt-6">
         <HuiLabel className="mb-1">
@@ -115,9 +114,7 @@ export default function FeedbackForm({
         id="details"
         className={clsx("form-input", errors.details && "form-input--error")}
       ></textarea>
-      {errors.details && (
-        <p className="mt-1 text-body-2 text-danger">{errors.details.message}</p>
-      )}
+      <FormErrorMessage fieldError={errors.details} />
 
       <div className="mt-10 flex flex-col gap-4 md:flex-row-reverse">
         <Button type="submit" variant="purple" disabled={isSubmitting}>

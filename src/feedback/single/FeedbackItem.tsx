@@ -6,7 +6,7 @@ import IconChevronUp from "@/ui/icons/IconChevronUp";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FeedbackSchema } from "../schemas";
+import { FeedbackSchema } from "../feedback-schemas";
 
 export default function FeedbackItem({
   feedbackItem,
