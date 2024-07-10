@@ -5,8 +5,13 @@ import Button from "@/ui/Button";
 import FormErrorMessage from "@/ui/FormErrorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { baseCommentSchema, BaseCommentSchema } from "./comment-schemas";
+import {
+  BaseCommentSchema,
+  MAX_COMMENT_LENGTH,
+  baseCommentSchema,
+} from "./comment-schemas";
 
 type CommentFormProps = {
   feedbackId: string;
@@ -26,7 +31,16 @@ export default function CommentForm({
     formState: { errors, isSubmitting },
   } = useForm<BaseCommentSchema>({
     resolver: zodResolver(baseCommentSchema),
+    defaultValues: {
+      content: "",
+    },
   });
+
+  const [charactersLeft, setCharactersLeft] = useState(MAX_COMMENT_LENGTH);
+  const content = watch("content");
+  useEffect(() => {
+    setCharactersLeft(MAX_COMMENT_LENGTH - content.length);
+  }, [content]);
 
   const onSubmit = async (data: BaseCommentSchema) => {
     console.log("onSubmit");
@@ -52,7 +66,14 @@ export default function CommentForm({
       <FormErrorMessage fieldError={errors.content} />
 
       <div className="mt-4 flex items-center justify-between">
-        <span className="text-body-4 text-slate-500">250 Characters left</span>
+        <span
+          className={clsx(
+            "text-body-4",
+            charactersLeft < 0 ? "text-danger" : "text-slate-500",
+          )}
+        >
+          {charactersLeft} Characters left
+        </span>
         <Button type="submit" variant="purple">
           Post Comment
         </Button>

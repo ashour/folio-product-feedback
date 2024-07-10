@@ -1,10 +1,12 @@
 import { z } from "zod";
 
+export const MAX_COMMENT_LENGTH = 20;
+
 export const baseCommentSchema = z.object({
   content: z
     .string()
     .min(10, "Comment must be 10 characters or more")
-    .max(250, "Comment must be 250 characters or less"),
+    .max(MAX_COMMENT_LENGTH, "Comment must be 250 characters or less"),
 });
 
 export type BaseCommentSchema = z.infer<typeof baseCommentSchema>;
