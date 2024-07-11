@@ -34,7 +34,7 @@ export default function FeedbackItem({
       <div className="col-span-2 md:order-2 md:col-span-1">
         <h2
           className={clsx({
-            "mb-[9px] text-body-3 font-bold tracking-[-0.18px] md:mb-1 md:text-h3":
+            "mb-[9px] text-h3 font-bold tracking-[-0.18px] md:mb-1 md:text-h3":
               true,
             "group-hover:text-blue": !isFeedbackDetailsPage,
           })}

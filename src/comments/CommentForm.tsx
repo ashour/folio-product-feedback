@@ -8,9 +8,9 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  BaseCommentSchema,
+  CommentContentSchema,
   MAX_COMMENT_LENGTH,
-  baseCommentSchema,
+  commentContentSchema,
 } from "./comment-schemas";
 
 type CommentFormProps = {
@@ -29,8 +29,8 @@ export default function CommentForm({
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<BaseCommentSchema>({
-    resolver: zodResolver(baseCommentSchema),
+  } = useForm<CommentContentSchema>({
+    resolver: zodResolver(commentContentSchema),
     defaultValues: {
       content: "",
     },
@@ -42,7 +42,7 @@ export default function CommentForm({
     setCharactersLeft(MAX_COMMENT_LENGTH - content.length);
   }, [content]);
 
-  const onSubmit = async (data: BaseCommentSchema) => {
+  const onSubmit = async (data: CommentContentSchema) => {
     console.log("onSubmit");
     console.log(data);
   };

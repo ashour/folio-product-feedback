@@ -1,3 +1,4 @@
+import { baseCommentSchema } from "@/comments/comment-schemas";
 import { z } from "zod";
 import { categories } from "./categories";
 import { statuses } from "./statuses";
@@ -11,6 +12,7 @@ export const feedbackSchema = z.object({
   authorId: z.string().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+  comments: z.array(baseCommentSchema).optional(),
 });
 
 export type FeedbackSchema = z.infer<typeof feedbackSchema>;
